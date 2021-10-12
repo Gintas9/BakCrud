@@ -4,11 +4,7 @@
 
 namespace Composer\Autoload;
 
-<<<<<<< HEAD
 class ComposerStaticInitb5efc9f83fbba7d04d8a51b46bc99679
-=======
-class ComposerStaticInita095361212b9cf5a59454e27ae4a33f7
->>>>>>> 4fe7986e50e208f497dfd1283da74eaf040cd4dd
 {
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
@@ -520,6 +516,10 @@ class ComposerStaticInita095361212b9cf5a59454e27ae4a33f7
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\CrudGeneratorController' => __DIR__ . '/../..' . '/app/Console/Commands/CrudGeneratorController.php',
+        'App\\Console\\Commands\\CrudGeneratorMigration' => __DIR__ . '/../..' . '/app/Console/Commands/CrudGeneratorMigration.php',
+        'App\\Console\\Commands\\CrudGeneratorModel' => __DIR__ . '/../..' . '/app/Console/Commands/CrudGeneratorModel.php',
+        'App\\Console\\Commands\\CrudGeneratorView' => __DIR__ . '/../..' . '/app/Console/Commands/CrudGeneratorView.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -5442,17 +5442,10 @@ class ComposerStaticInita095361212b9cf5a59454e27ae4a33f7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-<<<<<<< HEAD
             $loader->prefixLengthsPsr4 = ComposerStaticInitb5efc9f83fbba7d04d8a51b46bc99679::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb5efc9f83fbba7d04d8a51b46bc99679::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitb5efc9f83fbba7d04d8a51b46bc99679::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitb5efc9f83fbba7d04d8a51b46bc99679::$classMap;
-=======
-            $loader->prefixLengthsPsr4 = ComposerStaticInita095361212b9cf5a59454e27ae4a33f7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita095361212b9cf5a59454e27ae4a33f7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita095361212b9cf5a59454e27ae4a33f7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita095361212b9cf5a59454e27ae4a33f7::$classMap;
->>>>>>> 4fe7986e50e208f497dfd1283da74eaf040cd4dd
 
         }, null, ClassLoader::class);
     }

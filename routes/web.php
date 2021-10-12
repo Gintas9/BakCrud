@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('temps','App\Http\Controllers\TempController');
+Route::resource('tests','App\Http\Controllers\TestController');
+Route::resource('alphas','App\Http\Controllers\AlphaController');
+Route::resource('betas','App\Http\Controllers\BetaController');
+Route::resource('gamas','App\Http\Controllers\GamaController');

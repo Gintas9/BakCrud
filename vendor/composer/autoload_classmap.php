@@ -6,6 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\CrudGeneratorController' => $baseDir . '/app/Console/Commands/CrudGeneratorController.php',
+    'App\\Console\\Commands\\CrudGeneratorMigration' => $baseDir . '/app/Console/Commands/CrudGeneratorMigration.php',
+    'App\\Console\\Commands\\CrudGeneratorModel' => $baseDir . '/app/Console/Commands/CrudGeneratorModel.php',
+    'App\\Console\\Commands\\CrudGeneratorView' => $baseDir . '/app/Console/Commands/CrudGeneratorView.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
