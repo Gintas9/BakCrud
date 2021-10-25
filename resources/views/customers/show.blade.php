@@ -6,25 +6,25 @@
 
         <div class="d-flex justify-content-center ">
 
-            <h1>{{$alpha->title}}</h1>
+            <h1>{{$customer->title}}</h1>
 
         </div>
         <div class="d-flex justify-content-center">
 
-            <p>Created at: {{$alpha->created_at}}</p>
+            <p>Created at: {{$customer->created_at}}</p>
 
         </div>
 
         <div class="d-flex justify-content-center list-inline m-2">
-            <a href="{{route('alphas.index')}}" class="btn btn-warning list-inline-item">
+            <a href="{{route('customers.index')}}" class="btn btn-warning list-inline-item">
                 Back
             </a>
 
-            <a href="{{route("alphas.edit",$alpha)}}" class="btn btn-primary list-inline-item">Edit</a>
+            <a href="{{route("customers.edit",$customer)}}" class="btn btn-primary list-inline-item">Edit</a>
 
 
             <form onsubmit="return confirm('Do you really want to delete the item?');"
-                  action="{{route('alphas.destroy',$alpha)}}" method="POST">
+                  action="{{route('customers.destroy',$customer)}}" method="POST">
                 @method('DELETE')
                 @csrf
                 <button class="btn btn-danger list-inline-item">Delete</button>
@@ -48,11 +48,11 @@
 
                 <div href='' class='list-group-item list-group-item-action '>
                     <div>
-                        <h3> Title : @if($alpha->title ) {{$alpha->title  }}@else NULL @endif</h3>
+                        <h3> Title : @if($customer->title ) {{$customer->title  }}@else NULL @endif</h3>
                     </div>
                 </div><div href='' class='list-group-item list-group-item-action '>
                     <div>
-                        <h3> Body : @if($alpha->body ) {{$alpha->body  }}@else NULL @endif</h3>
+                        <h3> Body : @if($customer->body ) {{$customer->body  }}@else NULL @endif</h3>
                     </div>
                 </div>
 

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="d-flex justify-content-center">
 
-            <h1>alphas</h1>
+            <h1>zettas</h1>
 
         </div>
 
@@ -17,7 +17,7 @@
 
         <div class="d-flex justify-content-center">
 
-            <form method="POST" action="{{route('alphas.store')}}" onsubmit="return confirm('Do you really want to create the item?');">
+            <form method="POST" action="{{route('zettas.store')}}" onsubmit="return confirm('Do you really want to create the item?');">
                 {{csrf_field()}}
                 <div class="">
 
@@ -62,14 +62,14 @@
 
         <div class="d-flex  justify-content-center">
             <div class="list-group col-lg-4 ">
-                @foreach($alphas as $alpha)
-                    <a href="{{route('alphas.show',$alpha)}}" class="list-group-item list-group-item-action ">
+                @foreach($zettas as $zetta)
+                    <a href="{{route('zettas.show',$zetta)}}" class="list-group-item list-group-item-action ">
                         <div>
-                            <h3>{{$alpha->title}}</h3>
+                            <h3>{{$zetta->title}}</h3>
                         </div>
 
                         <div>
-                            Created at: {{$alpha->created_at}}
+                            Created at: {{$zetta->created_at}}
                         </div>
 
                     </a>

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\GeneratorCommand;
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
 
 class CrudGeneratorMigration extends GeneratorCommand
 {
@@ -13,7 +14,9 @@ class CrudGeneratorMigration extends GeneratorCommand
      * @var string
      */
     protected $signature = 'crudgen:migration {name}
-                            {--schema=: type:name SINGULAR}';
+                            {--schema= : type:name SINGULAR}
+                            {--reference= : something }
+                            {--json= : Name of JSON file}';
 
     /**
      * The console command description.
@@ -56,6 +59,8 @@ class CrudGeneratorMigration extends GeneratorCommand
      */
     protected function buildClass($name){
 
+
+        $jsonpath = './app/Console/crudDataFiles/';
         $stub = $this->files->get($this->getStub());
         $tableName = lcfirst($this->argument('name')) . "s";
         $schemaPlan = $this->option('schema');
@@ -64,6 +69,17 @@ class CrudGeneratorMigration extends GeneratorCommand
         $schemaPlan=$this->userInput($schemaPlan);
 
 
+        if($this->option('json') != null ) {
+            $this->warn($jsonpath . $this->option("json"));
+
+            if (!file_exists($jsonpath . $this->option("json")))
+                throw new Exception('Path Not Present!');
+
+            return $this->schemaUp($stub,$this->buildJSONSchema($this->readJSON($jsonpath)))
+                ->replaceTable($stub,$tableName)                     //must be plural
+                ->replaceClass($stub,$className);
+
+        }
         return $this->schemaUp($stub,$this->buildSchema($schemaPlan))
             ->replaceTable($stub,$tableName)                     //must be plural
             ->replaceClass($stub,$className);
@@ -95,6 +111,101 @@ class CrudGeneratorMigration extends GeneratorCommand
 
     }
 
+    /**
+     * Build the model class with the given json file.
+     *
+     *
+     *
+     * @return string
+     */
+    protected function buildJSONSchema($jsonObj){
+
+        $variables = $jsonObj->variables;
+        $finalMigration="";
+        foreach($variables as $item){
+
+            if($item->type == "bigIncrements"){
+
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "bigInteger"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }else if($item->type == "integer" || $item->type == "int"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }else if($item->type == "unsignedBigInteger"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "binary"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "boolean"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "char"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."',100);\n"; // UPDATE!!!!!!!!!!!!!!!!!!!
+            }
+            else if($item->type == "date"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "double"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."',8,2);\n";
+            }
+            else if($item->type == "float"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "longText"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "string"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "text"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else if($item->type == "timestamps"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            }
+            else {
+
+                $finalMigration.="\$table->string('".$item->name."');\n";
+
+                $this->info("\"".$item->type."\" NOT RECOGNISED AS TYPE. SET AS STRING!!!");
+            }
+
+
+        }
+
+        if(isset($jsonObj->foreignKey)) {
+            $foreignKey = $jsonObj->foreignKey;
+            if ($foreignKey !== null) {
+                $this->info("some:" . $foreignKey . ": ");
+                $finalMigration = $this->buildJSONForeignKey($finalMigration, $this->readJSON('./app/Console/crudDataFiles/'));
+
+            }
+        }
+
+        return $finalMigration;
+    }
+
+    /**
+     * Creates foreign key
+     * from JSON file
+     *
+     * @param  string  $builtSchema
+     * * @param  object  $jsonObj
+     *
+     * @return string
+     */
+    protected function buildJSONForeignKey($builtSchema, $jsonObj){
+
+        $foreignKey = $jsonObj->foreignKey;
+        foreach ($foreignKey as $item) {
+            $template = "\$table->foreign('" . $item->column . "')->references('" . $item->references . "')->on('" . $item->on . "');\n";
+            $builtSchema .= $template;
+        }
+        return $builtSchema;
+
+    }
 
 
     /**
@@ -125,6 +236,8 @@ class CrudGeneratorMigration extends GeneratorCommand
                 $finalMigration.="\$table->".$item['type']."('".$item['name']."');\n";
             }
             else if($item['type'] == "bigInteger"){
+                $finalMigration.="\$table->".$item['type']."('".$item['name']."');\n";
+            }else if($item['type'] == "unsignedBigInteger"){
                 $finalMigration.="\$table->".$item['type']."('".$item['name']."');\n";
             }
             else if($item['type'] == "binary"){
@@ -158,16 +271,50 @@ class CrudGeneratorMigration extends GeneratorCommand
                 $finalMigration.="\$table->".$item['type']."('".$item['name']."');\n";
             }
             else {
+
                 $finalMigration.="\$table->string('".$item['name']."');\n";
+
                 $this->info("\"".$item['type']."\" NOT RECOGNISED AS TYPE. SET AS STRING!!!");
             }
 
 
         }
+        $foreignKey = $this->option('reference');
+        if($foreignKey !== null) {
+            $this->info("good:".$foreignKey);
+           $finalMigration=$this->buildForeignKey($finalMigration);
+
+        }
+
 
         return $finalMigration;
     }
 
+
+    /**
+     * Creates foreign key
+     * is added to buildSchema method
+     *
+     * @param  string  $builtSchema
+     *
+     * @return string
+     */
+    protected function buildForeignKey($builtSchema){
+
+        $foreignKey = $this->option('reference');
+        $exploded = explode(",",$foreignKey);
+        //variable,references,on
+        $variable=$exploded[0];
+        $references = $exploded[1];
+        $on = $exploded[2];
+
+        $template ="\$table->foreign('".$variable."')->references('".$references."')->on('".$on."');\n";
+
+        $builtSchema .= $template;
+
+    return $builtSchema;
+
+    }
 
 
     /**
@@ -201,5 +348,21 @@ class CrudGeneratorMigration extends GeneratorCommand
 
         return $this;
     }
+
+    /**
+     * Read JSON
+     *
+     * @return object
+     */
+    protected function readJSON($path){
+
+        $jsonpath = $this->files->get($path . $this->option("json"));
+
+        $json = json_decode($jsonpath);
+
+        return $json;
+
+    }
+
 
 }

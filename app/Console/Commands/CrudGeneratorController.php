@@ -79,10 +79,10 @@ class CrudGeneratorController extends GeneratorCommand
 
 
 
-            return $this->replaceRequestItems($stub)
+            return $this->replaceJSONRequestItems($stub,$this->readJSON($jsonpath ))
                 ->replaceModelName($stub, $onlyName)
-                ->replaceJSONStoreValidation($stub,
-                    $this->generateJSONStoreValidation())
+                ->replaceStoreValidation($stub,
+                    $this->generateJSONStoreValidation($this->readJSON($jsonpath )))
                 ->replaceNamespace($stub, $name)
                 ->replaceClass($stub, $controllerName);
         }
@@ -112,6 +112,65 @@ class CrudGeneratorController extends GeneratorCommand
 
         return $json;
 
+    }
+
+
+    /**
+     * Generates store validations from JSON
+     *
+     * @return string
+     */
+    protected function generateJSONStoreValidation($jsonObj){
+
+        $template = "        '{{Name}}' => '{{Validation}}', \n";
+        $formattedVarsValidations = "";
+        $validations = $jsonObj->validations;
+
+        foreach ($validations as $item) {
+            $temp = str_replace(
+                '{{Name}}', $item->name, $template
+            );
+
+            $temp = str_replace(
+                '{{Validation}}', $item->validation, $temp
+            );
+
+
+            $formattedVarsValidations .= $temp;
+
+        }
+
+        return $formattedVarsValidations;
+
+    }
+
+    /**
+     * Replaces Requst items from JSON
+     * @return object
+     */
+    protected function replaceJSONRequestItems(&$stub,$jsonObj)
+    {
+
+        $template = "        \${{crudModelNameSing}}->{{Name}} = \$request->{{Name}}; \n";
+        $vars = $this->option('vars');
+        $exploded = explode(',',trim($vars));
+        $requestItems ="";
+        $variables = $jsonObj->variables;
+
+
+        foreach ($variables as $item) {
+            $temp = str_replace(
+                '{{Name}}', $item->name, $template
+            );
+
+            $requestItems .= $temp;
+
+        }
+
+        $stub = str_replace(
+            '{{Request Items}}', $requestItems, $stub
+        );
+        return $this;
     }
 
 
@@ -178,6 +237,8 @@ class CrudGeneratorController extends GeneratorCommand
 
         return $formattedVarsValidations;
     }
+
+
 
     protected function replaceStoreValidation(&$stub, $validations)
     {

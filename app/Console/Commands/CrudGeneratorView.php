@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 
+use Exception;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Http\File;
 class CrudGeneratorView extends GeneratorCommand
@@ -13,8 +14,9 @@ class CrudGeneratorView extends GeneratorCommand
      * @var string
      */
     protected $signature = 'crudgen:view {name}
-                            {--modelname:Name of the model}
-                            {--vars=:[Items Array comma seperated]}';
+                            {--modelname= : Name of the model}
+                            {--vars= : [Items Array comma seperated]}
+                            {--json= : Path to json file}';
 
     /**
      * The console command description.
@@ -82,39 +84,202 @@ class CrudGeneratorView extends GeneratorCommand
      */
     public function handle()
     {
-        // $stub = $this->files->get($this->getStub());
-        // $onlyName = $this->argument('name');
-
-        //$this->info($name);
-        //return $this->replaceModelName($stub,$onlyName);
-
-        // $stub = $this->files->get($this->getStub());
+        $jsonpath = './app/Console/crudDataFiles/';
         $dir = $this->getDefaultNamespace("");
         $this->createViewDirectory($dir);
-        $this->buildEditView($dir);
-        $this->buildIndexView($dir);
-        $this->buildShowView($dir);
-        $this->info("works");
-        $this->info($dir);
+        $dir = $this->getDefaultNamespace("");
+        if($this->option('json') != null ) {
+            $this->warn($jsonpath . $this->option("json"));
+
+            if (!file_exists($jsonpath . $this->option("json")))
+                throw new Exception('Path Not Present!');
+
+            $jsonObj = $this->readJSON($jsonpath);
+            $this->buildJSONEditView($dir,$jsonObj);
+            $this->buildJSONIndexView($dir,$jsonObj);
+            $this->buildJSONShowView($dir,$jsonObj);
+
+        }
+        else {
+            $this->buildEditView($dir);
+            $this->buildIndexView($dir);
+            $this->buildShowView($dir);
+        }
+
 
     }
 
-
-    protected function replaceModelName(&$stub, $name)
+    /**
+     * Creates Edit View from JSON file
+     *
+     * @return void
+     */
+    protected function buildJSONEditView($path,$jsonObj)
     {
+
+        $onlyName = $this->argument('name');
+        $onlyName = lcfirst($onlyName);
+        $tempStub = $this->files->get($this->editStub);
+        $fileName = "edit.blade.php";
+        $finalPath = $path . "/" . $fileName;
+        $stub = $this->replaceJSONStubItems($tempStub, $onlyName,$jsonObj);
+        $this->files->put($finalPath, $stub);
+
+    }
+
+    protected function generateJSONEditInputFields($jsonObj){
+
+        $template="<input name='{{Name}}' type='text' id='form1Example1' class='form-control' value='{{\${{crudModelNameSing}}->{{Name}}}}'/>";
+        $vars = $this->option('vars');
+        $exploded = explode(',', trim($vars));
+        $formattedInputs = "";
+        $variables = $jsonObj->variables;
+        foreach ($variables as $item) {
+            $formattedInputs .= str_replace(
+                "{{Name}}", lcfirst($item->name), $template
+            );
+
+
+        }
+
+        return $formattedInputs;
+    }
+
+
+    /**
+     * Generates Controller Class
+     * BAD
+     * @return string
+     */
+    protected function replaceJSONStubItems($stub, $name,$jsonObj)
+    {
+
 
         $plural = lcfirst($name) . 's';
 
         $stub = str_replace(
             '{{crudModelName}}', $plural, $stub
         );
-
+        $stub = str_replace(
+            '{{InputFields}}', $this->generateJSONEditInputFields($jsonObj), $stub
+        );
         $stub = str_replace(
             '{{crudModelNameSing}}', lcfirst($name), $stub
         );
 
-        return $this;
+
+
+        return $stub;
+
     }
+
+
+    /**
+     * Creates Edit View with JSON file
+     *
+     * @return void
+     */
+    protected function buildJSONShowView($path,$jsonObj)
+    {
+
+        $onlyName = $this->argument('name');
+        $onlyName = lcfirst($onlyName);
+        $tempStub = $this->files->get($this->showStub);
+        $tempStub = $this->replaceShowItems($tempStub, $this->generateJSONShowItems($jsonObj));
+        $fileName = "show.blade.php";
+        $finalPath = $path . "/" . $fileName;
+        $stub = $this->replaceStubItems($tempStub, $onlyName);
+
+        $this->files->put($finalPath, $stub);
+
+    }
+
+    /**
+     * Generates items in show.blade.php
+     *
+     * @return string
+     */
+    protected function generateJSONShowItems($jsonObj)
+    {
+        $vars = $this->option('vars');
+        $exploded = explode(',', trim($vars));
+        $formattedVars = "";
+
+        $template = "<div href='' class='list-group-item list-group-item-action '>
+                    <div>
+                        <h3> {{Name}} : @if(\${{crudModelNameSing}}->{{Value}} ) {{\${{crudModelNameSing}}->{{Value}}  }}@else NULL @endif</h3>
+                    </div>
+                </div>";
+
+        $variables = $jsonObj->variables;
+
+        foreach ($variables as $item) {
+            $temp = str_replace(
+                "{{Name}}", ucfirst($item->name), $template
+            );
+            $formattedVars .= str_replace(
+                "{{Value}}", $item->name, $temp
+            );
+
+        }
+
+
+        return $formattedVars;
+
+    }
+
+    /**
+     * Creates Index View from JSON file
+     *
+     * @return void
+     */
+    protected function buildJSONIndexView($path, $jsonObj)
+    {
+
+        $onlyName = $this->argument('name');
+        $onlyName = lcfirst($onlyName);
+        $tempStub = $this->files->get($this->indexStub);
+        $tempStub = $this->replaceIndexInputItems($tempStub, $this->generateJSONIndexItems($jsonObj));
+        $fileName = "index.blade.php";
+        $finalPath = $path . "/" . $fileName;
+        $stub = $this->replaceStubItems($tempStub, $onlyName);
+        $this->files->put($finalPath, $stub);
+
+    }
+
+
+
+
+    /**
+     * Generates input items in index.blade.php
+     *
+     * @return string
+     */
+    protected function generateJSONIndexItems($jsonObj)
+    {
+        $vars = $this->option('vars');
+        $exploded = explode(',', trim($vars));
+        $formattedInputs = "";
+
+        $template = "  <div class='input-group input-group-lg'><input name='{{Name}}' type='text' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='{{Value}}'></div>";
+        $variables = $jsonObj->variables;
+
+        foreach ($variables as $item) {
+            $temp = str_replace(
+                "{{Name}}", lcfirst($item->name), $template
+            );
+            $formattedInputs .= str_replace(
+                "{{Value}}", ucfirst($item->name), $temp
+            );
+
+        }
+
+
+        return $formattedInputs;
+
+    }
+
+
 
     /**
      * Generates Controller Class
@@ -180,8 +345,6 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = $this->argument('name');
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get($this->editStub);
-      //  $inputs=$this->generateEditInputFields();
-       // $tempStub = $this->replaceIndexInputItems($tempStub,$inputs);
         $fileName = "edit.blade.php";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
@@ -330,6 +493,21 @@ class CrudGeneratorView extends GeneratorCommand
     protected function getStub()
     {
         // TODO: Implement getStub() method.
+    }
+
+    /**
+     * Read JSON
+     *
+     * @return object
+     */
+    protected function readJSON($path){
+
+        $jsonpath = $this->files->get($path . $this->option("json"));
+
+        $json = json_decode($jsonpath);
+
+        return $json;
+
     }
 }
 

@@ -40,12 +40,39 @@ class CrudGeneratorCRUD extends Command
      */
     public function handle()
     {
-      //  $this->call('crud:model', ['name' => $modelName, '--fillable' => $fillable, '--table' => $tableName]);
 
-        $this->info("Working!");
-        $this->call();
+    $this->runCommands();
 
     }
+
+    protected function runCommands(){
+
+
+
+        $name= ucfirst(strtolower($this->argument('name')));
+
+
+        $schemaPlan = $this->option('schema');
+        $vars = $this->option('vars');
+
+
+        if($vars !== null && $schemaPlan !== null && $name !== null ){
+
+        $this->call('crud:controller', ['name' => $name, '--vars' => $vars]);
+        $this->call('crud:model', ['name' => $name, '--vars' => $vars]);
+        $this->call('crud:view', ['name' => $name, '--vars' => $vars]);
+        $this->call('crud:migration', ['name' => $name, '--schema' => $schemaPlan]);
+        $this->info("Created CRUD!");
+
+    }   else{
+            $this->info("Parameters missing!");
+        }
+
+    }
+
+
+
+
 
 
 

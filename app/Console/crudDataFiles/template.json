@@ -1,0 +1,33 @@
+{
+  "variables":[
+    {
+      "name":"title",
+      "type":"string"
+    },
+    {
+      "name":"body",
+      "type":"string"
+    },
+    {
+      "name":"age",
+      "type":"int"
+    }
+
+  ],
+  "validations": [
+    {
+    "name":"title",
+    "validation":"required|min:1"
+    }
+
+  ],
+
+  "foreignKey": [
+    {
+      "column": "column",
+      "references": "references",
+      "on": "on"
+    }
+
+  ]
+}

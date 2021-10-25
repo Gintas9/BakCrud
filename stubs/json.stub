@@ -1,0 +1,11 @@
+{
+    "crudName":"{{crudName}}",
+    "variables":[
+
+      {{Variables}}
+
+    ]
+    {{Validations}}
+    {{ForeignKeys}}
+
+}
