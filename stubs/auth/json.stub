@@ -1,0 +1,36 @@
+{
+    "crudName":"User",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"name"
+                             }, {
+            "type":"string",
+            "name":"email"
+                             }, {
+            "type":"string",
+            "name":"password"
+                             }
+
+    ]
+    ,
+  "validations": [
+
+    {
+
+    "name":"name",
+    "validation":"required|min:1|unique"
+    },{
+
+    "name":"email",
+    "validation":"required|min:1|unique|email"
+    },{
+
+    "name":"password",
+    "validation":"required"
+    }
+  ]
+
+
+}

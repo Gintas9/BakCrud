@@ -15,7 +15,7 @@ class CrudGeneratorMigration extends GeneratorCommand
      */
     protected $signature = 'crudgen:migration {name}
                             {--schema= : type:name SINGULAR}
-                            {--reference= : something }
+                            {--reference= : references,on,entity }
                             {--json= : Name of JSON file}';
 
     /**
@@ -125,7 +125,6 @@ class CrudGeneratorMigration extends GeneratorCommand
         foreach($variables as $item){
 
             if($item->type == "bigIncrements"){
-
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
             }
             else if($item->type == "bigInteger"){
@@ -221,14 +220,12 @@ class CrudGeneratorMigration extends GeneratorCommand
        $schemaItems=array();
        $finalMigration="";
        $i=0;
-
        foreach($exploded as $item){
            $temp=explode(":", $item);
            $schemaItems[$i]['type'] = trim($temp[0]);
            $schemaItems[$i]['name'] = trim($temp[1]);
            $i++;
        }
-
         foreach($schemaItems as $item){
 
             if($item['type'] == "bigIncrements"){
@@ -303,13 +300,10 @@ class CrudGeneratorMigration extends GeneratorCommand
 
         $foreignKey = $this->option('reference');
         $exploded = explode(",",$foreignKey);
-        //variable,references,on
         $variable=$exploded[0];
         $references = $exploded[1];
         $on = $exploded[2];
-
         $template ="\$table->foreign('".$variable."')->references('".$references."')->on('".$on."');\n";
-
         $builtSchema .= $template;
 
     return $builtSchema;

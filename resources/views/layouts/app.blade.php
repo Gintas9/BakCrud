@@ -28,61 +28,61 @@
 
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('Reddit Clone', 'Reddit Clone') }}
-                </a>
+<div id="app">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/home') }}">
+                {{ config('Reddit Clone', 'Reddit Clone') }}
+            </a>
 
 
-                <div class="" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+            <div class="" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
 
 
-                    <!-- Right Side Of Navbar -->
+                <!-- Right Side Of Navbar -->
 
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
+                <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
 
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login.custom') }}">{{ __('Login') }}</a>
 
-                            @endif
+                    @endif
 
-                            @if (Route::has('register'))
+                    @if (Route::has('register'))
 
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
 
-                            @endif
-                        @else
+                    @endif
+                @else
 
-                                <a id="" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 
-                                </a>
+                    </a>
 
-                                <div class="" aria-labelledby="navbarDropdown">
-                                    <a class="" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                    <div class="" aria-labelledby="navbarDropdown">
+                        <a class="" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                            {{ __('Logout') }}
+                        </a>
 
 
-                                </div>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                        @endguest
+                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @endguest
 
-                </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-
         </div>
+    </nav>
+
+    <main class="py-4">
+        @yield('content')
+    </main>
+
+</div>
 </body>
 </html>

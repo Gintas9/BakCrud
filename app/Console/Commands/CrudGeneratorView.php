@@ -419,13 +419,11 @@ class CrudGeneratorView extends GeneratorCommand
         $vars = $this->option('vars');
         $exploded = explode(',', trim($vars));
         $formattedVars = "";
-
         $template = "<div href='' class='list-group-item list-group-item-action '>
                     <div>
                         <h3> {{Name}} : @if(\${{crudModelNameSing}}->{{Value}} ) {{\${{crudModelNameSing}}->{{Value}}  }}@else NULL @endif</h3>
                     </div>
                 </div>";
-
         foreach ($exploded as $item) {
             $temp = str_replace(
                 "{{Name}}", ucfirst($item), $template
@@ -433,10 +431,7 @@ class CrudGeneratorView extends GeneratorCommand
             $formattedVars .= str_replace(
                 "{{Value}}", $item, $temp
             );
-
         }
-
-
         return $formattedVars;
 
     }
@@ -451,10 +446,7 @@ class CrudGeneratorView extends GeneratorCommand
         $vars = $this->option('vars');
         $exploded = explode(',', trim($vars));
         $formattedInputs = "";
-
         $template = "  <div class='input-group input-group-lg'><input name='{{Name}}' type='text' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='{{Value}}'></div>";
-
-
         foreach ($exploded as $item) {
             $temp = str_replace(
                 "{{Name}}", lcfirst($item), $template
@@ -462,12 +454,8 @@ class CrudGeneratorView extends GeneratorCommand
             $formattedInputs .= str_replace(
                 "{{Value}}", ucfirst($item), $temp
             );
-
         }
-
-
         return $formattedInputs;
-
     }
 
     protected function generateEditInputFields(){
@@ -476,15 +464,11 @@ class CrudGeneratorView extends GeneratorCommand
         $vars = $this->option('vars');
         $exploded = explode(',', trim($vars));
         $formattedInputs = "";
-
         foreach ($exploded as $item) {
             $formattedInputs .= str_replace(
                 "{{Name}}", lcfirst($item), $template
             );
-
-
         }
-
         return $formattedInputs;
     }
 

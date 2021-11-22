@@ -77,8 +77,6 @@ class CrudGeneratorController extends GeneratorCommand
                 throw new Exception('Path Not Present!');
 
 
-
-
             return $this->replaceJSONRequestItems($stub,$this->readJSON($jsonpath ))
                 ->replaceModelName($stub, $onlyName)
                 ->replaceStoreValidation($stub,
@@ -225,16 +223,12 @@ class CrudGeneratorController extends GeneratorCommand
         $vars = $this->option('vars');
         $exploded = explode(',',trim($vars));
         $formattedVarsValidations = "";
-
         foreach ($exploded as $item) {
             $temp = str_replace(
                 '{{Name}}', $item, $template
             );
-
             $formattedVarsValidations .= $temp;
-
         }
-
         return $formattedVarsValidations;
     }
 
@@ -273,13 +267,11 @@ class CrudGeneratorController extends GeneratorCommand
     }
 
     protected function buildRoute($name){
-
         $webURL="./routes/web.php";
         $controllerName=ucfirst($name);
         $plurName=lcfirst($name) . 's';
         $web = $this->files->get($webURL);
         $template = "Route::resource('{{Name}}','App\Http\Controllers\{{ControllerName}}Controller');";
-
         $temp1 = str_replace(
             '{{ControllerName}}', $controllerName, $template
         );
@@ -289,20 +281,12 @@ class CrudGeneratorController extends GeneratorCommand
         if(strpos($web,$temp2) == false){
             $fp= fopen($webURL, 'a');
           fwrite($fp,PHP_EOL.$temp2);
-
            fclose($fp);
-           // $web .= $temp2;
-            //$this->files->put($webURL,$web);
             $this->info('Created Resource Route!');
 
         }else{
             $this->info('Route already present!');
         }
-
-
-
-
-
     }
 
 
