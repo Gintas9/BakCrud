@@ -65,7 +65,7 @@
                 @foreach(${{crudModelName}} as ${{crudModelNameSing}})
                     <a href="{{route('{{crudModelName}}.show',${{crudModelNameSing}})}}" class="list-group-item list-group-item-action ">
                         <div>
-                            <h3>{{${{crudModelNameSing}}->title}}</h3>
+                            <h3>{{${{crudModelNameSing}}->name}}</h3>
                         </div>
 
                         <div>

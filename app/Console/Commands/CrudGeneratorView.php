@@ -127,19 +127,191 @@ class CrudGeneratorView extends GeneratorCommand
 
     }
 
-    protected function generateJSONEditInputFields($jsonObj){
+    /**
+     * Creates Select
+     *
+     * @return void
+     */
+    protected function generateJSONSelect($options,$name)
+    {
 
-        $template="<input name='{{Name}}' type='text' id='form1Example1' class='form-control' value='{{\${{crudModelNameSing}}->{{Name}}}}'/>";
+    $template ='    <label for="{{Name}}">{{Name}}</label>
+                    <select class="form-select" name="{{Name}}" id="{{Name}}">
+                      {{Options}}
+                    </select> ';
+    $optsEmpty="";
+    $optionTemplate = '<option  value="{{Value}}">{{Name}}</option>';
+        foreach ($options as $option) {
+
+            $temp = str_replace(
+                "{{Name}}", $option, $optionTemplate
+            );
+            if($option=="True" || $option=="true" ){
+            $optsEmpty .= str_replace(
+                '"{{Value}}"', 1, $temp
+            );
+        }else if( $option=="False" || $option=="false" ){
+
+                $optsEmpty .= str_replace(
+                    '"{{Value}}"', 0, $temp
+                );
+            }else{
+
+                $optsEmpty .= str_replace(
+                    "{{Value}}", $option, $temp
+                );
+            }
+
+        }
+
+        $final = str_replace(
+            "{{Options}}", $optsEmpty, $template
+        );
+
+        $final=str_replace(
+            "{{Name}}", $name, $final
+        );
+
+    return $final;
+    }
+
+    protected function generateChecboxRadioSelect($options,$name, $isCheckbox)
+    {
+
+        $template ='    <label ><h5>{{Name}}</h5></label> <br>';
+        $optsEmpty="";
+        $optionTemplate = '<input type="{{Type}}" id="{{ID}}" name="{{ID}}" value="{{Name}}">
+                    <label for="{{ID}}">{{Name}}</label><br>';
+        foreach ($options as $option) {
+
+            $temp = str_replace(
+                "{{Name}}", $option, $optionTemplate
+            );
+
+            $temp = str_replace(
+                "{{ID}}", $name, $temp
+            );
+            if($isCheckbox) {
+                $optsEmpty .= str_replace(
+                    "{{Type}}", "checkbox", $temp
+                );
+            }else{
+                $optsEmpty .= str_replace(
+                    "{{Type}}", "radio", $temp
+                );
+            }
+        }
+
+
+        $final = str_replace(
+            "{{Name}}", $name, $template
+        );
+
+        $final .= $optsEmpty;
+
+        return $final;
+    }
+
+
+    /**
+     * Generates input items in index.blade.php
+     *
+     * @return string
+     */
+    protected function generateJSONIndexItems($jsonObj)
+    {
         $vars = $this->option('vars');
         $exploded = explode(',', trim($vars));
         $formattedInputs = "";
+
+        $template = "  <div class='input-group input-group-lg'><input name='{{Name}}' type='{{Type}}' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='' placeholder='{{Name}}'></div>";
+        $textareatemplate = "<textarea class='input-group input-group-lg form-control' name='{{Name}}' placeholder='{{Name}}'></textarea>";;
+
         $variables = $jsonObj->variables;
-        foreach ($variables as $item) {
-            $formattedInputs .= str_replace(
-                "{{Name}}", lcfirst($item->name), $template
+        $options = $jsonObj->inputs;
+
+
+        foreach ($options as $option) {
+            if($option->inputType == "textarea"){
+                $formattedInputs .= str_replace(
+                    "{{Name}}", lcfirst($option->name), $textareatemplate
+                );
+            }else if($option->inputType == "select"){
+                $realOptions = $option->options;
+                $formattedInputs .= $this->generateJSONSelect($realOptions,$option->name);
+
+            }else if($option->inputType == "radio"){
+                $realOptions = $option->options;
+                $formattedInputs .= $this->generateChecboxRadioSelect($realOptions,$option->name,FALSE);
+
+            }
+            else if($option->inputType == "checkbox"){
+                $realOptions = $option->options;
+                $formattedInputs .= $this->generateChecboxRadioSelect($realOptions,$option->name,TRUE);
+
+            }
+            else {
+                $temp = str_replace(
+                    "{{Name}}", lcfirst($option->name), $template
+                );
+                $temp2 = str_replace(
+                    "{{Value}}", ucfirst($option->name), $temp
+                );
+                $formattedInputs .= str_replace(
+                    "{{Type}}", ucfirst($option->inputType), $temp2
+                );
+            }
+        }
+
+
+        return $formattedInputs;
+
+    }
+
+    protected function generateJSONEditInputFields($jsonObj){
+
+        //$template="<input name='{{Name}}' type='text' id='form1Example1' class='form-control' value='{{\${{crudModelNameSing}}->{{Name}}}}'/>";
+
+        $template = "  <div class='input-group input-group-lg'><input name='{{Name}}' type='{{Type}}' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='{{\${{crudModelNameSing}}->{{Name}}}}' placeholder='{{Name}}'></div>";
+        $textareatemplate = "<textarea class='input-group input-group-lg form-control' name='{{Name}}' placeholder='{{Name}}'>{{\${{crudModelNameSing}}->{{Name}}}}</textarea>";
+
+        $vars = $this->option('vars');
+        $exploded = explode(',', trim($vars));
+        $options = $jsonObj->inputs;
+        $formattedInputs = "";
+        $variables = $jsonObj->variables;
+        foreach ($options as $option) {
+
+            if($option->inputType == "textarea"){
+                $formattedInputs .= str_replace(
+                    "{{Name}}", lcfirst($option->name), $textareatemplate
+                );
+            }else if($option->inputType == "select"){
+                $realOptions = $option->options;
+                $formattedInputs .= $this->generateJSONSelect($realOptions,$option->name);
+
+            }else if($option->inputType == "radio"){
+                $realOptions = $option->options;
+                $formattedInputs .= $this->generateChecboxRadioSelect($realOptions,$option->name,FALSE);
+
+            }
+            else if($option->inputType == "checkbox"){
+                $realOptions = $option->options;
+                $formattedInputs .= $this->generateChecboxRadioSelect($realOptions,$option->name,TRUE);
+
+            }else {
+
+
+            $temp = str_replace(
+                "{{Name}}", lcfirst($option->name), $template
             );
-
-
+            $temp2 = str_replace(
+                "{{Value}}", ucfirst($option->name), $temp
+            );
+            $formattedInputs .= str_replace(
+                "{{Type}}", ucfirst($option->inputType), $temp2
+            );
+        }
         }
 
         return $formattedInputs;
@@ -250,34 +422,9 @@ class CrudGeneratorView extends GeneratorCommand
 
 
 
-    /**
-     * Generates input items in index.blade.php
-     *
-     * @return string
-     */
-    protected function generateJSONIndexItems($jsonObj)
-    {
-        $vars = $this->option('vars');
-        $exploded = explode(',', trim($vars));
-        $formattedInputs = "";
-
-        $template = "  <div class='input-group input-group-lg'><input name='{{Name}}' type='text' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='{{Value}}'></div>";
-        $variables = $jsonObj->variables;
-
-        foreach ($variables as $item) {
-            $temp = str_replace(
-                "{{Name}}", lcfirst($item->name), $template
-            );
-            $formattedInputs .= str_replace(
-                "{{Value}}", ucfirst($item->name), $temp
-            );
-
-        }
 
 
-        return $formattedInputs;
 
-    }
 
 
 

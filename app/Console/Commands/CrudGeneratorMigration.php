@@ -130,18 +130,15 @@ class CrudGeneratorMigration extends GeneratorCommand
             else if($item->type == "bigInteger"){
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
             }else if($item->type == "integer" || $item->type == "int"){
-                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+                $finalMigration.="\$table->"."integer"."('".$item->name."');\n";
             }else if($item->type == "unsignedBigInteger"){
-                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
-            }
-            else if($item->type == "binary"){
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
             }
             else if($item->type == "boolean"){
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
             }
             else if($item->type == "char"){
-                $finalMigration.="\$table->".$item->type."('".$item->name."',100);\n"; // UPDATE!!!!!!!!!!!!!!!!!!!
+                $finalMigration.="\$table->".$item->type."('".$item->name."',1);\n"; // UPDATE!!!!!!!!!!!!!!!!!!!
             }
             else if($item->type == "date"){
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
@@ -161,8 +158,8 @@ class CrudGeneratorMigration extends GeneratorCommand
             else if($item->type == "text"){
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
             }
-            else if($item->type == "timestamps"){
-                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+            else if($item->type == "time"){
+                $finalMigration.="\$table->".$item->type."('".$item->name."',\$precision = 0);\n";
             }
             else {
 

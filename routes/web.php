@@ -33,3 +33,5 @@ Route::resource('sigmas','App\Http\Controllers\SigmaController');
 Route::resource('betas','App\Http\Controllers\BetaController');
 
 Route::resource('registrations','App\Http\Controllers\RegistrationController');
+Route::resource('zettas','App\Http\Controllers\ZettaController');
+Route::resource('booleans','App\Http\Controllers\BooleanController');

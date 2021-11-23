@@ -18,7 +18,7 @@
                         {{InputFields}}
                         <input type="hidden" class="form-control" placeholder="Text" name="pid" value="">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
             </div>
         </div>
