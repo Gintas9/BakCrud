@@ -21,6 +21,16 @@
     }
 
   ],
+  "inputs": {
+    "name": "gender",
+    "inputType": "text",
+    "options": {
+      "male": "Male",
+      "female": "Female"
+    }
+
+
+  },
 
   "foreignKey": [
     {

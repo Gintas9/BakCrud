@@ -6,6 +6,7 @@
 
     ]
     {{Validations}}
+    {{Inputs}}
     {{ForeignKeys}}
 
 }

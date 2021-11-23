@@ -1,0 +1,36 @@
+{
+    "crudName":"alpha",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"name"
+                             }, {
+            "type":"string",
+            "name":"surname"
+                             }, {
+            "type":"integer",
+            "name":"age"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"name",
+    "validation":"required|min:1"
+    },{
+    
+    "name":"surname",
+    "validation":"required|max:100"
+    },{
+    
+    "name":"age",
+    "validation":"required"
+    }
+  ]
+    
+
+}
