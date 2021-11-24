@@ -27,11 +27,13 @@ Route::get('registration', [CustomAuthController::class, 'registration'])->name(
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
-Route::resource('alphas','App\Http\Controllers\AlphaController');
-Route::resource('gamas','App\Http\Controllers\GamaController');
-Route::resource('sigmas','App\Http\Controllers\SigmaController');
-Route::resource('betas','App\Http\Controllers\BetaController');
 
-Route::resource('registrations','App\Http\Controllers\RegistrationController');
+Route::resource('gamas','App\Http\Controllers\GamaController');
+
+
+
 Route::resource('zettas','App\Http\Controllers\ZettaController');
 Route::resource('booleans','App\Http\Controllers\BooleanController');
+Route::resource('omegas','App\Http\Controllers\OmegaController');
+Route::resource('downloads','App\Http\Controllers\DownloadController');
+Route::resource('sigmas','App\Http\Controllers\SigmaController');

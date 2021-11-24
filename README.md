@@ -56,3 +56,13 @@ php artisan crudgen:view Boolean --json="booleanJSON.json"
 php artisan crudgen:controller Boolean --json="booleanJSON.json"
 php artisan crudgen:migration Boolean --json="booleanJSON.json"
 php artisan crudgen:model Boolean
+
+
+
+File upload #########
+
+php artisan crudgen:json Omega --vars="string:name,string:lastName,string:filePath" --validation="name,required|max:100-lastName,required-filePath,min:1" --inputs="name,text-lastName,text-filePath,file"
+php artisan crudgen:view Omega --json="omegaJSON.json"
+php artisan crudgen:controller Omega --json="omegaJSON.json"
+php artisan crudgen:migration Omega --json="omegaJSON.json"
+php artisan crudgen:model Omega

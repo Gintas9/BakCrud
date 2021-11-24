@@ -17,7 +17,7 @@
 
         <div class="d-flex justify-content-center">
 
-            <form method="POST" action="{{route('{{crudModelName}}.store')}}" onsubmit="return confirm('Do you really want to create the item?');">
+            <form method="POST" enctype="multipart/form-data" action="{{route('{{crudModelName}}.store')}}" onsubmit="return confirm('Do you really want to create the item?');">
                 {{csrf_field()}}
                 <div class="">
 

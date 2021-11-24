@@ -9,7 +9,7 @@
                 <a href="{{route('{{crudModelName}}.show',${{crudModelNameSing}})}}" class="btn btn-warning">
                     Back
                 </a>
-                <form method="POST" action="{{route('{{crudModelName}}.update',['{{crudModelNameSing}}'=>${{crudModelNameSing}}])}}">
+                <form enctype="multipart/form-data" method="POST" action="{{route('{{crudModelName}}.update',['{{crudModelNameSing}}'=>${{crudModelNameSing}}])}}">
                     @method('PUT') @csrf
                     <br>
                     <div class="form-outline mb-4">

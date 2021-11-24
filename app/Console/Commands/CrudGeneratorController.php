@@ -60,7 +60,6 @@ class CrudGeneratorController extends GeneratorCommand
      */
 
 
-    // TODO : add route generating
 
     protected function buildClass($name)
     {
@@ -150,6 +149,12 @@ class CrudGeneratorController extends GeneratorCommand
     {
 
         $template = "        \${{crudModelNameSing}}->{{Name}} = \$request->{{Name}}; \n";
+        $fileTemplate = "       if(\$request->{{Name}} != null) {       \${{crudModelNameSing}}->{{Name}} = \$request->file('{{Name}}')->store('files'); } \n";
+        $storeAs = "        \${{crudModelNameSing}}->{{Name}} = \$request->file('{{Name}}')->storeAs('files',{{FileName}}); \n";
+
+  //      $storeasTemplate="$path = $request->file('avatar')->storeAs(
+    //'avatars', $request->user()->id
+//);"
         $vars = $this->option('vars');
         $exploded = explode(',',trim($vars));
         $requestItems ="";
@@ -157,10 +162,17 @@ class CrudGeneratorController extends GeneratorCommand
 
 
         foreach ($variables as $item) {
-            $temp = str_replace(
-                '{{Name}}', $item->name, $template
-            );
+            //$this->info($item);
+            if($item->name === "filePath") {
 
+                $temp = str_replace(
+                    '{{Name}}', $item->name, $fileTemplate
+                );
+            }else {
+                $temp = str_replace(
+                    '{{Name}}', $item->name, $template
+                );
+            }
             $requestItems .= $temp;
 
         }
@@ -247,14 +259,16 @@ class CrudGeneratorController extends GeneratorCommand
     {
 
         $template = "        \${{crudModelNameSing}}->{{Name}} = \$request->{{Name}}; \n";
+        $fileTemplate = "        \${{crudModelNameSing}}->{{Name}} = \$request->file('{{Name}}')->store('files'); \n";
         $vars = $this->option('vars');
         $exploded = explode(',',trim($vars));
         $requestItems ="";
-
+        $fil="filePath";
         foreach ($exploded as $item) {
-            $temp = str_replace(
-                '{{Name}}', $item, $template
-            );
+
+                $temp = str_replace(
+                    '{{Name}}', $item, $template
+                );
 
             $requestItems .= $temp;
 
