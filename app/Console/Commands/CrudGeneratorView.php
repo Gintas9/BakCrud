@@ -6,6 +6,8 @@ namespace App\Console\Commands;
 use Exception;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+
 class CrudGeneratorView extends GeneratorCommand
 {
     /**
@@ -16,7 +18,9 @@ class CrudGeneratorView extends GeneratorCommand
     protected $signature = 'crudgen:view {name}
                             {--modelname= : Name of the model}
                             {--vars= : [Items Array comma seperated]}
-                            {--json= : Path to json file}';
+                            {--json= : Path to json file}
+                            {--delete : deletes view directory}
+                            ';
 
     /**
      * The console command description.
@@ -65,7 +69,7 @@ class CrudGeneratorView extends GeneratorCommand
 
         $onlyName = $this->argument('name');
         $pluralname = $onlyName . 's';
-        return '/resources/views/' . lcfirst($pluralname);
+        return 'resources/views/' . lcfirst($pluralname);
     }
 
     /**
@@ -90,28 +94,68 @@ class CrudGeneratorView extends GeneratorCommand
 
         $this->createViewDirectory($dir);
         $dir = $this->getDefaultNamespace("");
-        if($this->option('json') != null ) {
-            $this->warn($jsonpath . $this->option("json"));
-
-            if (!file_exists(base_path($jsonpath . $this->option("json"))))
-                throw new Exception('Path Not Present!');
-
-            $jsonObj = $this->readJSON($jsonpath);
-            $this->buildJSONEditView($dir,$jsonObj);
-            $this->buildJSONIndexView($dir,$jsonObj);
-            $this->buildJSONShowView($dir,$jsonObj);
-
+        if($this->option('delete') != null){
+            $this->deleteViewDirectory($this->argument('name'));
         }
         else {
-            $this->buildEditView($dir);
-            $this->buildIndexView($dir);
-            $this->buildShowView($dir);
+            if ($this->option('json') != null) {
+                $this->warn($jsonpath . $this->option("json"));
+
+                if (!file_exists(base_path($jsonpath . $this->option("json"))))
+                    throw new Exception('Path Not Present!');
+
+                $jsonObj = $this->readJSON($jsonpath);
+                $this->buildJSONEditView($dir, $jsonObj);
+                $this->buildJSONIndexView($dir, $jsonObj);
+                $this->buildJSONShowView($dir, $jsonObj);
+
+            } else {
+                $this->buildEditView($dir);
+                $this->buildIndexView($dir);
+                $this->buildShowView($dir);
+            }
         }
 
 
     }
 
+    /**
+     * Deletes View
+     *
+     * @return void
+     */
+    protected function deleteViewDirectory($name)
+    {
+        $dir = $this->getDefaultNamespace("");
 
+        $pluralName=strtolower($name).'s';
+        $directorybase=base_path($dir);
+        $directory='resources/views/'.$pluralName;
+        if (file_exists($directory)) {
+            //rmmkdir(base_path($directory), 777, true);
+
+            $this->warn("exists");
+
+            $arr=['edit','index','show'];
+            foreach ($arr as $item){
+                $this->warn($directory.'/'.$item.'.blade.php');
+                if (file_exists($directorybase.'/' . $item . '.blade.php')) {
+                    $this->warn($directory.'/'.$item.'.blade.php');
+                    unlink($directory . '/' . $item . '.blade.php');
+                }
+
+            }
+
+            rmdir($directorybase);
+            Storage::deleteDirectory($directory);
+            //exec("sudo mkdir ". $directory);
+        }else{
+            $this->warn($directory);
+            $this->warn("not exists");
+        }
+
+
+    }
     /**
      * Creates Edit View from JSON file
      *
@@ -126,6 +170,7 @@ class CrudGeneratorView extends GeneratorCommand
         $fileName = "edit.blade.php";
         $finalPath = base_path($path . "/" . $fileName);
         $stub = $this->replaceJSONStubItems($tempStub, $onlyName,$jsonObj);
+        $this->info($finalPath);
         $this->files->put($finalPath, $stub);
 
     }
@@ -515,7 +560,9 @@ class CrudGeneratorView extends GeneratorCommand
     {
 
         if (!file_exists(base_path($directory))) {
-           mkdir(base_path($directory), 777, true);
+
+           mkdir(base_path($directory), 0775, true);
+        //   chmod(base_path($directory),777);
             //exec("sudo mkdir ". $directory);
         }
 
@@ -536,6 +583,7 @@ class CrudGeneratorView extends GeneratorCommand
         $fileName = "edit.blade.php";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
+
         $this->files->put($finalPath, $stub);
 
     }

@@ -89,3 +89,4 @@ php artisan crudgen:model Admin
 
 ############Lambda
 php artisan crudgen:CRUD Lambda --json="deltaJSON.json"
+php artisan crudgen:view Lambda --json="deltaJSON.json"
