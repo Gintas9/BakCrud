@@ -30,7 +30,7 @@ class CrudGeneratorMigration extends GeneratorCommand
      *
      * @var string
      */
-    protected $stub = "./stubs/migration.create.stub";
+    protected $stub = "/stubs/migration.create.stub";
 
     /**
      * Get the destination class path.
@@ -60,19 +60,19 @@ class CrudGeneratorMigration extends GeneratorCommand
     protected function buildClass($name){
 
 
-        $jsonpath = './app/Console/crudDataFiles/';
-        $stub = $this->files->get($this->getStub());
+        $jsonpath = '/app/Console/crudDataFiles/';
+        $stub = $this->files->get(base_path($this->getStub()));
         $tableName = lcfirst($this->argument('name')) . "s";
         $schemaPlan = $this->option('schema');
         $className = 'Create' . ucwords($tableName) . 'Table';
 
-        $schemaPlan=$this->userInput($schemaPlan);
+        //$schemaPlan=$this->userInput($schemaPlan);
 
 
         if($this->option('json') != null ) {
             $this->warn($jsonpath . $this->option("json"));
 
-            if (!file_exists($jsonpath . $this->option("json")))
+            if (!file_exists(base_path($jsonpath . $this->option("json"))))
                 throw new Exception('Path Not Present!');
 
             return $this->schemaUp($stub,$this->buildJSONSchema($this->readJSON($jsonpath)))
@@ -347,7 +347,7 @@ class CrudGeneratorMigration extends GeneratorCommand
      */
     protected function readJSON($path){
 
-        $jsonpath = $this->files->get($path . $this->option("json"));
+        $jsonpath = $this->files->get(base_path($path . $this->option("json")));
 
         $json = json_decode($jsonpath);
 

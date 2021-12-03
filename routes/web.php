@@ -40,3 +40,5 @@ Route::resource('sigmas','App\Http\Controllers\SigmaController');
 Route::resource('deltas','App\Http\Controllers\DeltaController');
 Route::resource('omicrons','App\Http\Controllers\OmicronController');
 Route::resource('moderators','App\Http\Controllers\ModeratorController');
+Route::resource('admins','App\Http\Controllers\AdminController');
+Route::resource('lambdas','App\Http\Controllers\LambdaController');

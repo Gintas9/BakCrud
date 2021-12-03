@@ -37,14 +37,14 @@ class CrudGeneratorView extends GeneratorCommand
      *
      * @var string
      */
-    protected $editStub = "./stubs/view.edit.stub";
+    protected $editStub = "/stubs/view.edit.stub";
 
     /**
      * show.blade.php stub
      *
      * @var string
      */
-    protected $showStub = "./stubs/view.show.stub";
+    protected $showStub = "/stubs/view.show.stub";
 
     /**
      *
@@ -52,7 +52,7 @@ class CrudGeneratorView extends GeneratorCommand
      *
      * @var string
      */
-    protected $indexStub = "./stubs/view.index.stub";
+    protected $indexStub = "/stubs/view.index.stub";
 
     /**
      * Get the default namespace for the class.
@@ -62,9 +62,10 @@ class CrudGeneratorView extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
+
         $onlyName = $this->argument('name');
         $pluralname = $onlyName . 's';
-        return './resources/views/' . lcfirst($pluralname);
+        return '/resources/views/' . lcfirst($pluralname);
     }
 
     /**
@@ -84,14 +85,15 @@ class CrudGeneratorView extends GeneratorCommand
      */
     public function handle()
     {
-        $jsonpath = './app/Console/crudDataFiles/';
+        $jsonpath = '/app/Console/crudDataFiles/';
         $dir = $this->getDefaultNamespace("");
+
         $this->createViewDirectory($dir);
         $dir = $this->getDefaultNamespace("");
         if($this->option('json') != null ) {
             $this->warn($jsonpath . $this->option("json"));
 
-            if (!file_exists($jsonpath . $this->option("json")))
+            if (!file_exists(base_path($jsonpath . $this->option("json"))))
                 throw new Exception('Path Not Present!');
 
             $jsonObj = $this->readJSON($jsonpath);
@@ -120,9 +122,9 @@ class CrudGeneratorView extends GeneratorCommand
 
         $onlyName = $this->argument('name');
         $onlyName = lcfirst($onlyName);
-        $tempStub = $this->files->get($this->editStub);
+        $tempStub = $this->files->get(base_path($this->editStub));
         $fileName = "edit.blade.php";
-        $finalPath = $path . "/" . $fileName;
+        $finalPath = base_path($path . "/" . $fileName);
         $stub = $this->replaceJSONStubItems($tempStub, $onlyName,$jsonObj);
         $this->files->put($finalPath, $stub);
 
@@ -359,10 +361,10 @@ class CrudGeneratorView extends GeneratorCommand
 
         $onlyName = $this->argument('name');
         $onlyName = lcfirst($onlyName);
-        $tempStub = $this->files->get($this->showStub);
+        $tempStub = $this->files->get(base_path($this->showStub));
         $tempStub = $this->replaceShowItems($tempStub, $this->generateJSONShowItems($jsonObj));
         $fileName = "show.blade.php";
-        $finalPath = $path . "/" . $fileName;
+        $finalPath = base_path($path . "/" . $fileName);
         $stub = $this->replaceStubItems($tempStub, $onlyName);
 
         $this->files->put($finalPath, $stub);
@@ -413,12 +415,12 @@ class CrudGeneratorView extends GeneratorCommand
 
         $onlyName = $this->argument('name');
         $onlyName = lcfirst($onlyName);
-        $tempStub = $this->files->get($this->indexStub);
+        $tempStub = $this->files->get(base_path($this->indexStub));
         $tempStub = $this->replaceIndexInputItems($tempStub, $this->generateJSONIndexItems($jsonObj));
         $fileName = "index.blade.php";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
-        $this->files->put($finalPath, $stub);
+        $this->files->put(base_path($finalPath), $stub);
 
     }
 
@@ -512,8 +514,9 @@ class CrudGeneratorView extends GeneratorCommand
     protected function createViewDirectory($directory)
     {
 
-        if (!file_exists($directory)) {
-            mkdir($directory, 0777, true);
+        if (!file_exists(base_path($directory))) {
+           mkdir(base_path($directory), 777, true);
+            //exec("sudo mkdir ". $directory);
         }
 
 
@@ -671,7 +674,7 @@ class CrudGeneratorView extends GeneratorCommand
      */
     protected function readJSON($path){
 
-        $jsonpath = $this->files->get($path . $this->option("json"));
+        $jsonpath = $this->files->get(base_path($path . $this->option("json")));
 
         $json = json_decode($jsonpath);
 

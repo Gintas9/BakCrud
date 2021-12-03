@@ -63,8 +63,8 @@ class CrudGeneratorController extends GeneratorCommand
 
     protected function buildClass($name)
     {
-        $jsonpath = './app/Console/crudDataFiles/';
-        $stub = $this->files->get($this->getStub());
+        $jsonpath = '/app/Console/crudDataFiles/';
+        $stub = $this->files->get(base_path($this->getStub()));
         $onlyName = $this->argument('name');
         $controllerName = $name. $this->type;
         $this->buildRoute($onlyName);
@@ -72,7 +72,7 @@ class CrudGeneratorController extends GeneratorCommand
         if($this->option('json') != null ){
             $this->warn($jsonpath . $this->option("json"));
 
-            if(!file_exists($jsonpath . $this->option("json")))
+            if(!file_exists(base_path($jsonpath) . $this->option("json")))
                 throw new Exception('Path Not Present!');
 
 
@@ -103,7 +103,7 @@ class CrudGeneratorController extends GeneratorCommand
      */
     protected function readJSON($path){
 
-        $jsonpath = $this->files->get($path . $this->option("json"));
+        $jsonpath = $this->files->get(base_path($path . $this->option("json")));
 
         $json = json_decode($jsonpath);
 
@@ -193,7 +193,7 @@ class CrudGeneratorController extends GeneratorCommand
      */
     protected function getStub()
     {
-        $path = "./stubs/controller.stub";
+        $path = "/stubs/controller.stub";
 
         return $path;
 
@@ -281,10 +281,10 @@ class CrudGeneratorController extends GeneratorCommand
     }
 
     protected function buildRoute($name){
-        $webURL="./routes/web.php";
+        $webURL="/routes/web.php";
         $controllerName=ucfirst($name);
         $plurName=lcfirst($name) . 's';
-        $web = $this->files->get($webURL);
+        $web = $this->files->get(base_path($webURL));
         $template = "Route::resource('{{Name}}','App\Http\Controllers\{{ControllerName}}Controller');";
         $temp1 = str_replace(
             '{{ControllerName}}', $controllerName, $template
@@ -293,7 +293,7 @@ class CrudGeneratorController extends GeneratorCommand
             '{{Name}}', $plurName, $temp1
         );
         if(strpos($web,$temp2) == false){
-            $fp= fopen($webURL, 'a');
+            $fp= fopen(base_path($webURL), 'a');
           fwrite($fp,PHP_EOL.$temp2);
            fclose($fp);
             $this->info('Created Resource Route!');

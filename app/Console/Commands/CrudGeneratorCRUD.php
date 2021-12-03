@@ -14,7 +14,8 @@ class CrudGeneratorCRUD extends Command
     protected $signature = 'crudgen:CRUD {name}
                             {--json= : JSON path}
                             {--vars= : Variables for Model name:type}
-                            {--schema= : type:name SINGULAR}'
+                            {--schema= : type:name SINGULAR}
+                            {--delete= : Deletes whole object}'
                             ;
 
     /**
@@ -45,7 +46,9 @@ class CrudGeneratorCRUD extends Command
     $this->runCommands();
 
     }
-
+     static function createAdminPanelJson($baseName,$vars,$validation,$inputs){
+       //$this->call('crud:json', ['name' => $baseName, '--vars' => $vars,'--validation'=>$validation,'--inputs'=>$inputs]);
+    }
     protected function runCommands(){
 
 
@@ -59,7 +62,7 @@ class CrudGeneratorCRUD extends Command
 
         if($this->option('json')  !== null){
 
-            if (!file_exists($jsonpath . $this->option("json")))
+            if (!file_exists(base_path($jsonpath . $this->option("json"))))
                 throw new Exception('Path Not Present!');
 
 
@@ -86,9 +89,10 @@ class CrudGeneratorCRUD extends Command
 
 
 
+    public function deleteCRUD()
+    {
 
-
-
+    }
 
 
 }

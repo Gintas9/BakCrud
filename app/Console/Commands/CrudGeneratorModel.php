@@ -37,14 +37,14 @@ class CrudGeneratorModel extends GeneratorCommand
      *
      * @var string
      */
-    protected $modelPath = "./app/Models/";
+    protected $modelPath = "/app/Models/";
 
    /**
      * The name of stub path being used.
      *
      * @var string
      */
-    protected $stub = "./stubs/model.stub";
+    protected $stub = "/stubs/model.stub";
 
 
     /**
@@ -68,7 +68,7 @@ class CrudGeneratorModel extends GeneratorCommand
     protected function buildClass($name)
     {
         $this->info($name);
-        $stub = $this->files->get($this->getStub());
+        $stub = $this->files->get(base_path($this->getStub()));
 
 
 
