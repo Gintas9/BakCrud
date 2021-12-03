@@ -1,3 +1,5 @@
+JEI 404 not found - php artisan route:clear
+
 pridejau ivairius input type for HTML
 Jsonui sukuria HTML inputu aprasymus
   
@@ -51,11 +53,11 @@ php artisan crudgen:migration Zetta --json="zettaJSON.json"
 php artisan crudgen:model Zetta
 
 BOOLOEAN######
-php artisan crudgen:json Boolean --vars="boolean:married,string:name,string:lastName" --validation="married,required-name,required|max:100-lastName,required" --inputs="married,select,True:False-name,text-lastName,text"
-php artisan crudgen:view Boolean --json="booleanJSON.json"
-php artisan crudgen:controller Boolean --json="booleanJSON.json"
-php artisan crudgen:migration Boolean --json="booleanJSON.json"
-php artisan crudgen:model Boolean
+php artisan crudgen:json Delta --vars="boolean:married,string:name,string:lastName" --validation="married,required-name,required|max:100-lastName,required" --inputs="married,select,True:False-name,text-lastName,text"
+php artisan crudgen:view Delta --json="deltaJSON.json"
+php artisan crudgen:controller Delta --json="deltaJSON.json"
+php artisan crudgen:migration Delta --json="deltaJSON.json"
+php artisan crudgen:model Delta
 
 
 
@@ -66,3 +68,11 @@ php artisan crudgen:view Omega --json="omegaJSON.json"
 php artisan crudgen:controller Omega --json="omegaJSON.json"
 php artisan crudgen:migration Omega --json="omegaJSON.json"
 php artisan crudgen:model Omega
+
+
+###########moderator
+php artisan crudgen:json Moderator --vars="string:gender,string:name,string:lastName" --validation="gender,required|min:1-name,required|max:100-lastName,required" --inputs="gender,select,male:female-name,text-lastName,text"
+php artisan crudgen:view Moderator --json="moderatorJSON.json"
+php artisan crudgen:controller Moderator --json="moderatorJSON.json"
+php artisan crudgen:migration Moderator --json="moderatorJSON.json"
+php artisan crudgen:model Moderator

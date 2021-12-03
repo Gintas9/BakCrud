@@ -109,6 +109,7 @@ class CrudGeneratorView extends GeneratorCommand
 
     }
 
+
     /**
      * Creates Edit View from JSON file
      *
@@ -339,7 +340,9 @@ class CrudGeneratorView extends GeneratorCommand
             '{{crudModelNameSing}}', lcfirst($name), $stub
         );
 
-
+        $stub = str_replace(
+            '{{listHeader}}', $this->buildListHeader($jsonObj), $stub
+        );
 
         return $stub;
 
@@ -379,7 +382,7 @@ class CrudGeneratorView extends GeneratorCommand
 
         $template = "<div href='' class='list-group-item list-group-item-action '>
                     <div>
-                        <h3> {{Name}} : @if(\${{crudModelNameSing}}->{{Value}} ) {{\${{crudModelNameSing}}->{{Value}}  }}@else NULL @endif</h3>
+                        <h3> {{Name}} : @if(\${{crudModelNameSing}}->{{Value}} == 1 ) True @elseif(\${{crudModelNameSing}}->{{Value}} == 0) False @elseif(\${{crudModelNameSing}}->{{Value}}) {{\${{crudModelNameSing}}->{{Value}}  }}@else NULL @endif</h3>
                     </div>
                 </div>";
 
@@ -422,10 +425,39 @@ class CrudGeneratorView extends GeneratorCommand
 
 
 
+    /**
+     * Build List Items
+     *
+     * @return string
+     */
+    protected function buildListItems($jsonObj)
+    {
+
+        $vars = $jsonObj->variables;
 
 
+        $final="";
+        foreach ($vars as $var) {
+           // $final .= '<th scope="col">' . $var->name .'</th>';
+            $final.='<td>{{${{crudModelNameSing}}->'. $var->name .'}}</td>';
+        }
+
+        return $final;
+
+    }
 
 
+    protected function buildListHeader($jsonObj)
+    {
+
+        $vars = $jsonObj->variables;
+        $final="";
+        foreach ($vars as $var) {
+            $final .= '<th scope="col">' . $var->name .'</th>';
+        }
+
+        return $final;
+    }
 
 
     /**
@@ -435,10 +467,14 @@ class CrudGeneratorView extends GeneratorCommand
      */
     protected function replaceStubItems($stub, $name)
     {
-
+        $jsonpath = './app/Console/crudDataFiles/';
+        $jsonObj = $this->readJSON($jsonpath);
 
         $plural = lcfirst($name) . 's';
 
+        $stub = str_replace(
+            '{{listItems}}', $this->buildListItems($jsonObj), $stub
+        );
         $stub = str_replace(
             '{{crudModelName}}', $plural, $stub
         );
@@ -448,7 +484,9 @@ class CrudGeneratorView extends GeneratorCommand
         $stub = str_replace(
             '{{crudModelNameSing}}', lcfirst($name), $stub
         );
-
+        $stub = str_replace(
+            '{{listHeader}}', $this->buildListHeader($jsonObj), $stub
+        );
 
 
         return $stub;

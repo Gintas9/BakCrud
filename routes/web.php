@@ -37,3 +37,6 @@ Route::resource('booleans','App\Http\Controllers\BooleanController');
 Route::resource('omegas','App\Http\Controllers\OmegaController');
 Route::resource('downloads','App\Http\Controllers\DownloadController');
 Route::resource('sigmas','App\Http\Controllers\SigmaController');
+Route::resource('deltas','App\Http\Controllers\DeltaController');
+Route::resource('omicrons','App\Http\Controllers\OmicronController');
+Route::resource('moderators','App\Http\Controllers\ModeratorController');
