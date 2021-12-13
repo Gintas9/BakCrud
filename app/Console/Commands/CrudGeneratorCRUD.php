@@ -15,7 +15,7 @@ class CrudGeneratorCRUD extends Command
                             {--json= : JSON path}
                             {--vars= : Variables for Model name:type}
                             {--schema= : type:name SINGULAR}
-                            {--delete= : Deletes whole object}'
+                            {--delete : Deletes whole object}'
                             ;
 
     /**
@@ -42,8 +42,12 @@ class CrudGeneratorCRUD extends Command
      */
     public function handle()
     {
+        if($this->option('delete')  != null){
+            $this->deleteCRUD($this->argument('name'));
 
-    $this->runCommands();
+        }else {
+            $this->info("delet missing");
+    $this->runCommands();}
 
     }
      static function createAdminPanelJson($baseName,$vars,$validation,$inputs){
@@ -60,37 +64,42 @@ class CrudGeneratorCRUD extends Command
         $vars = $this->option('vars');
         $json = $this->option('json') ;
 
-        if($this->option('json')  !== null){
-
-            if (!file_exists(base_path($jsonpath . $this->option("json"))))
-                throw new Exception('Path Not Present!');
 
 
-           $this->call('crud:controller', ['name' => $name, '--json' => $json]);
-           $this->call('crud:model', ['name' => $name]);
-           $this->call('crud:view', ['name' => $name, '--json' => $json]);
-           $this->call('crud:migration', ['name' => $name, '--json' => $json]);
-           $this->info("Created CRUD!");
+            if ($this->option('json') !== null) {
 
-        }
-        else if($vars !== null && $schemaPlan !== null && $name !== null ){
+                if (!file_exists(base_path($jsonpath . $this->option("json"))))
+                    throw new Exception('Path Not Present!');
 
-            $this->call('crud:controller', ['name' => $name, '--vars' => $vars]);
-            $this->call('crud:model', ['name' => $name, '--vars' => $vars]);
-            $this->call('crud:view', ['name' => $name, '--vars' => $vars]);
-            $this->call('crud:migration', ['name' => $name, '--schema' => $schemaPlan]);
-            $this->info("Created CRUD!");
 
-    }   else{
-            $this->info("Parameters missing!");
-        }
+                $this->call('crud:controller', ['name' => $name, '--json' => $json]);
+                $this->call('crud:model', ['name' => $name]);
+                $this->call('crud:view', ['name' => $name, '--json' => $json]);
+                $this->call('crud:migration', ['name' => $name, '--json' => $json]);
+                $this->info("Created CRUD!");
+
+            } else if ($vars !== null && $schemaPlan !== null && $name !== null) {
+
+                $this->call('crud:controller', ['name' => $name, '--vars' => $vars]);
+                $this->call('crud:model', ['name' => $name, '--vars' => $vars]);
+                $this->call('crud:view', ['name' => $name, '--vars' => $vars]);
+                $this->call('crud:migration', ['name' => $name, '--schema' => $schemaPlan]);
+                $this->info("Created CRUD!");
+
+            } else {
+                $this->info("Parameters missing!");
+            }
 
     }
 
 
 
-    public function deleteCRUD()
+    public function deleteCRUD($name)
     {
+        $this->call('crudgen:utils', ['name' => $name, '--item' => 'controller','--delete'=>true]);
+        $this->call('crudgen:utils', ['name' => $name, '--item' => 'table','--delete'=>true]);
+        $this->call('crudgen:view', ['name' => $name,'--delete'=>true]);
+        $this->call('crudgen:route', ['name' => $name,'--delete'=>true]);
 
     }
 

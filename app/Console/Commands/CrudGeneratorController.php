@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\Storage;
+
 class CrudGeneratorController extends GeneratorCommand
 {
     /**
@@ -15,7 +17,10 @@ class CrudGeneratorController extends GeneratorCommand
     protected $signature = 'crudgen:controller {name}
                             {--modelname : Name of the model}
                             {--vars= : [Items Array comma seperated ]}
-                            {--json= : Name of JSON file}';
+                            {--json= : Name of JSON file}
+                           
+                             {--force : Forces}
+                             ';
 
     /**
      * The console command description.
@@ -30,6 +35,8 @@ class CrudGeneratorController extends GeneratorCommand
      * @var string
      */
     protected $type = 'Controller';
+
+
 
 
 
@@ -69,30 +76,32 @@ class CrudGeneratorController extends GeneratorCommand
         $controllerName = $name. $this->type;
         $this->buildRoute($onlyName);
 
-        if($this->option('json') != null ){
-            $this->warn($jsonpath . $this->option("json"));
-
-            if(!file_exists(base_path($jsonpath) . $this->option("json")))
-                throw new Exception('Path Not Present!');
 
 
-            return $this->replaceJSONRequestItems($stub,$this->readJSON($jsonpath ))
-                ->replaceModelName($stub, $onlyName)
-                ->replaceStoreValidation($stub,
-                    $this->generateJSONStoreValidation($this->readJSON($jsonpath )))
-                ->replaceNamespace($stub, $name)
-                ->replaceClass($stub, $controllerName);
-        }
-        else {
+            if ($this->option('json') != null) {
+                $this->warn($jsonpath . $this->option("json"));
+
+                if (!file_exists(base_path($jsonpath) . $this->option("json")))
+                    throw new Exception('Path Not Present!');
 
 
-            return $this->replaceRequestItems($stub)
-                ->replaceModelName($stub, $onlyName)
-                ->replaceStoreValidation($stub,
-                    $this->generateStoreValidation())
-                ->replaceNamespace($stub, $name)
-                ->replaceClass($stub, $controllerName);
-        }
+                return $this->replaceJSONRequestItems($stub, $this->readJSON($jsonpath))
+                    ->replaceModelName($stub, $onlyName)
+                    ->replaceStoreValidation($stub,
+                        $this->generateJSONStoreValidation($this->readJSON($jsonpath)))
+                    ->replaceNamespace($stub, $name)
+                    ->replaceClass($stub, $controllerName);
+            } else {
+
+
+                return $this->replaceRequestItems($stub)
+                    ->replaceModelName($stub, $onlyName)
+                    ->replaceStoreValidation($stub,
+                        $this->generateStoreValidation())
+                    ->replaceNamespace($stub, $name)
+                    ->replaceClass($stub, $controllerName);
+            }
+
     }
 
 

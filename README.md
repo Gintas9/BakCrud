@@ -90,3 +90,10 @@ php artisan crudgen:model Admin
 ############Lambda
 php artisan crudgen:CRUD Lambda --json="deltaJSON.json"
 php artisan crudgen:view Lambda --json="deltaJSON.json"
+
+
+## deleting
+php artisan crudgen:view Lambda --delete
+php artisan crudgen:utils  Lambda --item='controller' --delete
+php artisan crudgen:util Lambda --item='table' --delete #drops table
+php artisan crudgen:CRUD Lambda --delete

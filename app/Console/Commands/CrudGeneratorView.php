@@ -130,7 +130,7 @@ class CrudGeneratorView extends GeneratorCommand
 
         $pluralName=strtolower($name).'s';
         $directorybase=base_path($dir);
-        $directory='resources/views/'.$pluralName;
+        $directory=resource_path('views/').$pluralName;
         if (file_exists($directory)) {
             //rmmkdir(base_path($directory), 777, true);
 
@@ -138,9 +138,9 @@ class CrudGeneratorView extends GeneratorCommand
 
             $arr=['edit','index','show'];
             foreach ($arr as $item){
-                $this->warn($directory.'/'.$item.'.blade.php');
+
                 if (file_exists($directorybase.'/' . $item . '.blade.php')) {
-                    $this->warn($directory.'/'.$item.'.blade.php');
+                    $this->warn($item.'.blade.php deleted!');
                     unlink($directory . '/' . $item . '.blade.php');
                 }
 
@@ -148,10 +148,10 @@ class CrudGeneratorView extends GeneratorCommand
 
             rmdir($directorybase);
             Storage::deleteDirectory($directory);
+            $this->warn("View ".$directory." directory deleted");
             //exec("sudo mkdir ". $directory);
         }else{
-            $this->warn($directory);
-            $this->warn("not exists");
+            $this->warn($directory. " does not exist!");
         }
 
 
