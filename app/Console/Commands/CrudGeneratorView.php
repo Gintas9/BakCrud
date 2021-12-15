@@ -272,7 +272,9 @@ class CrudGeneratorView extends GeneratorCommand
         $exploded = explode(',', trim($vars));
         $formattedInputs = "";
 
-        $template = "  <div class='input-group input-group-lg'><input name='{{Name}}' id='{{Name}}' type='{{Type}}' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='' placeholder='{{Name}}'></div>";
+        $template = "  <div class='input-group input-group-lg'>
+  <label for='{{Name}}'>{{Name}}</label>
+  <input name='{{Name}}' id='{{Name}}' type='{{Type}}' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='' placeholder='{{Name}}'></div>";
         $textareatemplate = "<textarea class='input-group input-group-lg form-control' name='{{Name}}' placeholder='{{Name}}'></textarea>";;
 
         $variables = $jsonObj->variables;

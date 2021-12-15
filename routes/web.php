@@ -20,12 +20,17 @@ Route::get('/', function () {
 
 
 
-Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
+Route::get('dashboard', [CustomAuthController::class, 'dashboard'])->name("dashboard.index");
+Route::get('main', [CustomAuthController::class, 'main'])->name("main.index");
+
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+
+Route::get('admins/controller/{admin}', [\App\Http\Controllers\AdminController::class, 'resubmitController'])->name('controllerAdmin');
+Route::get('admins/view/{admin}', [\App\Http\Controllers\AdminController::class, 'resubmitView'])->name('viewAdmin');
 
 
 Route::resource('gamas','App\Http\Controllers\GamaController');
@@ -34,7 +39,7 @@ Route::resource('gamas','App\Http\Controllers\GamaController');
 
 Route::resource('zettas','App\Http\Controllers\ZettaController');
 Route::resource('booleans','App\Http\Controllers\BooleanController');
-Route::resource('omegas','App\Http\Controllers\OmegaController');
+
 Route::resource('downloads','App\Http\Controllers\DownloadController');
 Route::resource('sigmas','App\Http\Controllers\SigmaController');
 Route::resource('deltas','App\Http\Controllers\DeltaController');
@@ -51,4 +56,9 @@ Route::resource('humans','App\Http\Controllers\HumanController');
 Route::resource('persons','App\Http\Controllers\PersonController');
 Route::resource('players','App\Http\Controllers\PlayerController');
 
+
 Route::resource('lambdas','App\Http\Controllers\LambdaController');
+
+Route::resource('johns','App\Http\Controllers\JohnController');
+Route::resource('bonds','App\Http\Controllers\BondController');
+Route::resource('omegas','App\Http\Controllers\OmegaController');

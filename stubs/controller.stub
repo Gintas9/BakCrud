@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use {{ rootNamespace }}Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use {{ rootNamespace }}Models\{{ModelName}};
-
+use Illuminate\Support\Facades\Auth;
 
 class {{ class }} extends Controller
 {
@@ -13,14 +13,22 @@ class {{ class }} extends Controller
     {
 
         ${{crudModelName}} = {{ModelName}}::all();
+     if(!Auth::check()){
 
+
+            return redirect("login")->withSuccess('You are not allowed to access');
+        }
 
         return view('{{crudModelName}}.index', ['{{crudModelName}}' => ${{crudModelName}}]);
     }
 
     public function show({{ModelName}} ${{crudModelNameSing}})
     {
+     if(!Auth::check()){
 
+
+            return redirect("login")->withSuccess('You are not allowed to access');
+        }
         ${{crudModelName}} = {{ModelName}}::all();
 
         return view('{{crudModelName}}.show', ['{{crudModelNameSing}}' => ${{crudModelNameSing}}]);
@@ -28,12 +36,21 @@ class {{ class }} extends Controller
 
     public function edit({{ModelName}} ${{crudModelNameSing}})
     {
+     if(!Auth::check()){
 
+
+            return redirect("login")->withSuccess('You are not allowed to access');
+        }
         return view('{{crudModelName}}.edit', ['{{crudModelNameSing}}' => ${{crudModelNameSing}}]);
     }
 
     public static function destroy({{ModelName}} ${{crudModelNameSing}})
     {
+         if(!Auth::check()){
+
+
+                return redirect("login")->withSuccess('You are not allowed to access');
+            }
         ${{crudModelNameSing}} = {{ModelName}}::find(${{crudModelNameSing}}->id)->delete();
 
         ${{crudModelName}} = {{ModelName}}::all();
@@ -43,6 +60,11 @@ class {{ class }} extends Controller
 
     public function store(Request $request)
     {
+     if(!Auth::check()){
+
+
+            return redirect("login")->withSuccess('You are not allowed to access');
+        }
 
         $this->validate($request, array(
             //'title' => 'required|max:100|min:5',
@@ -62,6 +84,11 @@ class {{ class }} extends Controller
 
     public function update(Request $request, {{ModelName}} ${{crudModelNameSing}})
     {
+         if(!Auth::check()){
+
+
+                return redirect("login")->withSuccess('You are not allowed to access');
+            }
         $this->validate($request, array(
 
 {{Validation Items}}
