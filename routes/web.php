@@ -57,8 +57,16 @@ Route::resource('persons','App\Http\Controllers\PersonController');
 Route::resource('players','App\Http\Controllers\PlayerController');
 
 
-Route::resource('lambdas','App\Http\Controllers\LambdaController');
 
-Route::resource('johns','App\Http\Controllers\JohnController');
-Route::resource('bonds','App\Http\Controllers\BondController');
+
+
+
 Route::resource('omegas','App\Http\Controllers\OmegaController');
+
+Route::resource('lambdas','App\Http\Controllers\LambdaController');
+Route::resource('goods','App\Http\Controllers\GoodController');
+Route::resource('zons','App\Http\Controllers\ZonController');
+Route::resource('teasts','App\Http\Controllers\TeastController');
+Route::resource('photos','App\Http\Controllers\PhotoController');
+
+Route::resource('fails','App\Http\Controllers\FailController');

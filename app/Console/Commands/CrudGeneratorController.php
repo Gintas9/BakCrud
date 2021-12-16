@@ -158,7 +158,10 @@ class CrudGeneratorController extends GeneratorCommand
     {
 
         $template = "        \${{crudModelNameSing}}->{{Name}} = \$request->{{Name}}; \n";
-        $fileTemplate = "       if(\$request->{{Name}} != null) {       \${{crudModelNameSing}}->{{Name}} = \$request->file('{{Name}}')->store('files'); } \n";
+        $fileTemplate = '       if($request->{{Name}} != null) { 
+        $url = $request->file("filePath")->store("public");
+           $url=str_replace("public/","",$url);
+           ${{crudModelNameSing}}->{{Name}}  = $url;}  ';
         $storeAs = "        \${{crudModelNameSing}}->{{Name}} = \$request->file('{{Name}}')->storeAs('files',{{FileName}}); \n";
 
   //      $storeasTemplate="$path = $request->file('avatar')->storeAs(

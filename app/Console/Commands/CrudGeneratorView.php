@@ -484,11 +484,20 @@ class CrudGeneratorView extends GeneratorCommand
 
         $vars = $jsonObj->variables;
 
-
+       // <td style="text-align: left;"><img src = "{{asset("storage/I3N9c8B0mkwRkzciYzNDp5PSOnEiTEqX4Ruk88f0.jpg")}}" width="120px" hight="120px" /></td>
         $final="";
+
         foreach ($vars as $var) {
            // $final .= '<th scope="col">' . $var->name .'</th>';
-            $final.='<td>{{${{crudModelNameSing}}->'. $var->name .'}}</td>';
+            if($var->name == "filePath"){
+
+                $final.='<td style="text-align: left;"><img src = "{{asset("storage/".'.'${{crudModelNameSing}}->'. $var->name .')}}" width="120px" hight="120px" /></td>';
+            }else{
+
+                $final.='<td style="text-align: left;">{{${{crudModelNameSing}}->'. $var->name .'}}</td>';
+            }
+
+
         }
 
         return $final;
@@ -502,7 +511,7 @@ class CrudGeneratorView extends GeneratorCommand
         $vars = $jsonObj->variables;
         $final="";
         foreach ($vars as $var) {
-            $final .= '<th scope="col">' . $var->name .'</th>';
+            $final .= '      <th><span>'.$var->name.'</span></th>';
         }
 
         return $final;
