@@ -16,7 +16,11 @@ class CrudGeneratorCRUD extends Command
                             {--json= : JSON path}
                             {--vars= : Variables for Model name:type}
                             {--schema= : type:name SINGULAR}
-                            {--delete : Deletes whole object}'
+                            {--delete : Deletes whole object}
+                            {--keys= : Variable,references,on}
+                            
+                            '
+
                             ;
 
     /**
@@ -64,6 +68,7 @@ class CrudGeneratorCRUD extends Command
         $schemaPlan = $this->option('schema');
         $vars = $this->option('vars');
         $json = $this->option('json') ;
+        $keys = $this->option('keys') ;
 
 
 
@@ -76,7 +81,14 @@ class CrudGeneratorCRUD extends Command
                 $this->call('crud:controller', ['name' => $name, '--json' => $json]);
                 $this->call('crud:model', ['name' => $name]);
                 $this->call('crud:view', ['name' => $name, '--json' => $json]);
-                $this->call('crud:migration', ['name' => $name, '--json' => $json]);
+
+                if ($this->option('keys') !== null) {
+                    $this->call('crud:migration', ['name' => $name, '--json' => $json, '--keys' => $keys]);
+                }else{
+
+                    $this->call('crud:migration', ['name' => $name, '--json' => $json]);
+                }
+
                 $this->info("Created CRUD!");
 
             } else if ($vars !== null && $schemaPlan !== null && $name !== null) {

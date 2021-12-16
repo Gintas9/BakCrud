@@ -11,7 +11,12 @@ php artisan crudgen:model Alpha
 php artisan crudgen:view Beta --json="alphaJSON.json"
 php artisan crudgen:view Alpha --vars="title,body,age"
 
-php artisan crudgen:json Registration --vars="string:name,string:email,string:password" --validation="name,required|min:1|unique-email,required|min:1|unique|email-password,required" --keys="beta,references,OnSomething"
+php artisan crudgen:CRUD Pkey --vars="string:name" --validation="name,required|min:1" 
+
+
+php artisan crudgen:JSON Pkey --vars="string:name" --validation="name,required|min:1" --inputs="name,text" 
+
+php artisan crudgen:json Cardinality --vars="string:name,bigInteger:pkeyid" --validation="name,required-pkeyid,required" --keys="pkeyid,id,pkeys" --inputs="name,text-pkeyid,number"
 
 
 

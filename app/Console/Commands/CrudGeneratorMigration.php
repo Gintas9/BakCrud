@@ -128,7 +128,7 @@ class CrudGeneratorMigration extends GeneratorCommand
                 $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
             }
             else if($item->type == "bigInteger"){
-                $finalMigration.="\$table->".$item->type."('".$item->name."');\n";
+                $finalMigration.="\$table->".$item->type."('".$item->name."')->unsigned();\n";
             }else if($item->type == "integer" || $item->type == "int"){
                 $finalMigration.="\$table->"."integer"."('".$item->name."');\n";
             }else if($item->type == "unsignedBigInteger"){
@@ -174,7 +174,7 @@ class CrudGeneratorMigration extends GeneratorCommand
         if(isset($jsonObj->foreignKey)) {
             $foreignKey = $jsonObj->foreignKey;
             if ($foreignKey !== null) {
-                $this->info("some:" . $foreignKey . ": ");
+               // $this->info("some:" . $foreignKey->on . ": ");
                 $finalMigration = $this->buildJSONForeignKey($finalMigration, $this->readJSON('./app/Console/crudDataFiles/'));
 
             }
