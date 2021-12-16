@@ -46,7 +46,14 @@
             <div class="col-sm-4" align="center">
             <h1 style="font-">CRUD GENERATOR</h1>
             </div>
-
+            @if (!empty($success))
+                <br>
+                <div class="d-flex justify-content-center">
+                    <div class="alert alert-danger" role="alert">
+                        {{$success}}
+                    </div>
+                </div>
+            @endif
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-5">

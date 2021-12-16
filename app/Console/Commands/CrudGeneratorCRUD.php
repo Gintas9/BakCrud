@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Console\Command;
 
 class CrudGeneratorCRUD extends Command

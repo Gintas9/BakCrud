@@ -431,7 +431,7 @@ class CrudGeneratorView extends GeneratorCommand
 
         $template = "<div href='' class='list-group-item list-group-item-action '>
                     <div>
-                        <h3> {{Name}} : @if(\${{crudModelNameSing}}->{{Value}} == 1 ) True @elseif(\${{crudModelNameSing}}->{{Value}} == 0) False @elseif(\${{crudModelNameSing}}->{{Value}}) {{\${{crudModelNameSing}}->{{Value}}  }}@else NULL @endif</h3>
+                        <h3> {{Name}} : {{(string)\${{crudModelNameSing}}->{{Value}} }}</h3>
                     </div>
                 </div>";
 

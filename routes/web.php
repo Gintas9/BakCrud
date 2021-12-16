@@ -31,6 +31,7 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 Route::get('admins/controller/{admin}', [\App\Http\Controllers\AdminController::class, 'resubmitController'])->name('controllerAdmin');
 Route::get('admins/view/{admin}', [\App\Http\Controllers\AdminController::class, 'resubmitView'])->name('viewAdmin');
+Route::get('admins/migrate/{admin}', [\App\Http\Controllers\AdminController::class, 'resubmitMigration'])->name('migrateAdmin');
 
 
 Route::resource('gamas','App\Http\Controllers\GamaController');
@@ -67,6 +68,14 @@ Route::resource('lambdas','App\Http\Controllers\LambdaController');
 Route::resource('goods','App\Http\Controllers\GoodController');
 Route::resource('zons','App\Http\Controllers\ZonController');
 Route::resource('teasts','App\Http\Controllers\TeastController');
-Route::resource('photos','App\Http\Controllers\PhotoController');
+
 
 Route::resource('fails','App\Http\Controllers\FailController');
+
+Route::resource('items','App\Http\Controllers\ItemController');
+
+Route::resource('marrieds','App\Http\Controllers\MarriedController');
+
+
+
+Route::resource('bans','App\Http\Controllers\BanController');
