@@ -48,7 +48,7 @@ php artisan crudgen:model Gama
 without option
 php artisan crudgen:json Gama --vars="string:name,string:lastName,string:description,int:age,string:email,char:letter" --validation="name,required|max:100-lastName,required-age,required-description,required-email,email-letter,required|max:1|min:1" --inputs="name,text-lastName,text-age,number-description,textarea-email,email-letter,text"
 
-WITH OPTION####################################
+##WITH OPTION####################################
 php artisan crudgen:json Zetta --vars="string:gender,string:name,string:lastName" --validation="gender,required|min:1-name,required|max:100-lastName,required" --inputs="gender,select,male:female-name,text-lastName,text"
 
 
@@ -57,7 +57,7 @@ php artisan crudgen:controller Zetta --json="zettaJSON.json"
 php artisan crudgen:migration Zetta --json="zettaJSON.json"
 php artisan crudgen:model Zetta
 
-BOOLOEAN######
+#BOOLOEAN######
 php artisan crudgen:json Delta --vars="boolean:married,string:name,string:lastName" --validation="married,required-name,required|max:100-lastName,required" --inputs="married,select,True:False-name,text-lastName,text"
 php artisan crudgen:view Delta --json="deltaJSON.json"
 php artisan crudgen:controller Delta --json="deltaJSON.json"
@@ -102,3 +102,9 @@ php artisan crudgen:view Lambda --delete
 php artisan crudgen:utils  Lambda --item='controller' --delete
 php artisan crudgen:util Lambda --item='table' --delete #drops table
 php artisan crudgen:CRUD Lambda --delete
+
+
+
+php artisan crudgen:JSON Pkey --vars="string:name" --validation="name,required|min:1" --inputs="name,text"
+
+php artisan crudgen:json Cardinality --vars="string:name,bigInteger:pkeyid" --validation="name,required-pkeyid,required" --keys="pkeyid,id,pkeys" --inputs="name,text-pkeyid,number"
