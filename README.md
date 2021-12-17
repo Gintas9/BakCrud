@@ -90,11 +90,9 @@ php artisan crudgen:model Moderator
 
 
 ###########admin panel
-php artisan crudgen:json Admin --vars="string:baseName,string:vars,string:validation,string:inputs" --validation="baseName,required-vars,required-validation,required-inputs,required" --inputs="baseName,text-vars,text-validation,text-inputs,text"
-php artisan crudgen:view Admin --json="adminJSON.json"
-php artisan crudgen:controller Admin --json="adminJSON.json"
-php artisan crudgen:migration Admin --json="adminJSON.json"
-php artisan crudgen:model Admin
+php artisan crudgen:json Admin --vars="string:baseName,string:vars,string:validation,string:inputs,string:foreignKey" --validation="baseName,required-vars,required-validation,required-inputs,required" --inputs="baseName,text-vars,text-validation,text-inputs,text-foreignKey,text"
+
+php artisan crudgen:migration Admin --json="adminJSON.json" 
 
 
 ############Lambda

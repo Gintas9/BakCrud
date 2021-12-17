@@ -84,3 +84,8 @@ Route::resource('cardinalitys','App\Http\Controllers\CardinalityController');
 Route::resource('delta7s','App\Http\Controllers\Delta7Controller');
 Route::resource('akeys','App\Http\Controllers\AkeyController');
 Route::resource('bkeys','App\Http\Controllers\BkeyController');
+
+
+
+
+Route::resource('omsis','App\Http\Controllers\OmsiController');
