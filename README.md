@@ -66,6 +66,11 @@ php artisan crudgen:model Delta
 
 
 
+php artisan crudgen:json Teazt --vars="boolean:married,string:name,string:lastName" --validation="married,required-name,required|max:100-lastName,required" --inputs="married,select,True:False-name,text-lastName,text"
+php artisan crudgen:controller Delta7 --json="deltaJSON.json"
+php artisan crudgen:view Omega8 --json="omegaJSON.json"
+
+
 File upload #########
 
 php artisan crudgen:json Omega --vars="string:name,string:lastName,string:filePath" --validation="name,required|max:100-lastName,required-filePath,min:1" --inputs="name,text-lastName,text-filePath,file"
@@ -107,4 +112,10 @@ php artisan crudgen:CRUD Lambda --delete
 
 php artisan crudgen:JSON Pkey --vars="string:name" --validation="name,required|min:1" --inputs="name,text"
 
-php artisan crudgen:json Cardinality --vars="string:name,bigInteger:pkeyid" --validation="name,required-pkeyid,required" --keys="pkeyid,id,pkeys" --inputs="name,text-pkeyid,number"
+php artisan crudgen:json Cardinality --vars="string:name,bigInteger:pkeyid" --validation="name,required-pkeyid,required" --keys="pkeyid:id:pkeys" --inputs="name,text-pkeyid,number"
+
+
+
+php artisan crudgen:JSON Akey --vars="string:name" --validation="name,required|min:1" --inputs="name,text"
+
+php artisan crudgen:json Bkey --vars="string:name,bigInteger:pkeyid" --validation="name,required-pkeyid,required" --keys="pkeyid:id:akeys" --inputs="name,text-pkeyid,number"

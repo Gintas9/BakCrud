@@ -81,3 +81,6 @@ Route::resource('marrieds','App\Http\Controllers\MarriedController');
 Route::resource('bans','App\Http\Controllers\BanController');
 Route::resource('pkeys','App\Http\Controllers\PkeyController');
 Route::resource('cardinalitys','App\Http\Controllers\CardinalityController');
+Route::resource('delta7s','App\Http\Controllers\Delta7Controller');
+Route::resource('akeys','App\Http\Controllers\AkeyController');
+Route::resource('bkeys','App\Http\Controllers\BkeyController');

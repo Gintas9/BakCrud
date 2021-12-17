@@ -92,6 +92,17 @@ class CrudGeneratorView extends GeneratorCommand
         $jsonpath = '/app/Console/crudDataFiles/';
         $dir = $this->getDefaultNamespace("");
 
+
+        $regName = "/^[A-Za-z]+$/";
+
+        if(preg_match($regName, $this->argument('name')) ==0)
+        {
+            throw new Exception('Wrong Name Convention. Can only be string letters, no numbers or special characters.');
+
+
+        }
+
+
         $this->createViewDirectory($dir);
         $dir = $this->getDefaultNamespace("");
         if($this->option('delete') != null){

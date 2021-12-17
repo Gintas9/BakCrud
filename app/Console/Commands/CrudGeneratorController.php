@@ -76,7 +76,14 @@ class CrudGeneratorController extends GeneratorCommand
         $controllerName = $name. $this->type;
         $this->buildRoute($onlyName);
 
+        $regName = "/^[A-Za-z]+$/";
 
+        if(preg_match($regName, $this->argument('name')) ==0)
+        {
+            throw new Exception('Wrong Name Convention. Can only be string letters, no numbers or special characters.');
+
+
+        }
 
             if ($this->option('json') != null) {
                 $this->warn($jsonpath . $this->option("json"));

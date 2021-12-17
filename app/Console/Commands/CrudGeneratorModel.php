@@ -70,6 +70,14 @@ class CrudGeneratorModel extends GeneratorCommand
         $this->info($name);
         $stub = $this->files->get(base_path($this->getStub()));
 
+        $regName = "/^[A-Za-z]+$/";
+
+        if(preg_match($regName, $this->argument('name')) ==0)
+        {
+            throw new Exception('Wrong Name Convention. Can only be string letters, no numbers or special characters.');
+
+
+        }
 
 
         return $this->replaceNamespace($stub,$name)

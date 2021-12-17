@@ -66,6 +66,24 @@ class CrudGeneratorMigration extends GeneratorCommand
         $schemaPlan = $this->option('schema');
         $className = 'Create' . ucwords($tableName) . 'Table';
 
+        $reg = "/^(\w|)+(?:,[A-Za-z0-9]+)*$/";
+        $regName = "/^[A-Za-z]+$/";
+
+        if(preg_match($regName, $this->argument('name')) ==0)
+        {
+            throw new Exception('Wrong Name Convention. Can only be string letters, no numbers or special characters.');
+
+
+        }
+        if(preg_match($reg, $this->option('reference')) ==0)
+        {
+            throw new Exception('Wrong Name Convention. Foreign key must be seperated with commas!.');
+
+
+        }
+
+
+
         //$schemaPlan=$this->userInput($schemaPlan);
 
 
