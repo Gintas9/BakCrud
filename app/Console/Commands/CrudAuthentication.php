@@ -104,13 +104,24 @@ class CrudAuthentication extends GeneratorCommand
         $this->call('crudgen:Crud', ['name' => "Ban", '--json' => "banJSON.json"]);
 
 
-        if (file_exists($jsonPath . "moderatorJSON.json")){
-            $this->info($jsonPath . "moderatorJSON.json" . " ALREADY EXISTS!");
-        }else{
-            $this->buildResource($jsonPath . "moderatorJSON.json" ,"moderatorjson.stub");
+
+
+
+
+        $viewPath = './resources/views/moderators/';
+
+        if (!file_exists($viewPath)) {
+            mkdir($viewPath, 0777, true);
         }
 
-        $this->call('crudgen:Crud', ['name' => "Moderator", '--json' => "moderatorJSON.json"]);
+
+        if (file_exists($viewPath . "index.blade.php")){
+            $this->info($viewPath . "index.blade.php" . " ALREADY EXISTS!");
+        }else{
+
+            $this->buildResource($viewPath . "index.blade.php" ,"moderatorIndex.stub");
+        }
+
 
     }
 
