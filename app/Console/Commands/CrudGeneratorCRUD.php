@@ -55,9 +55,7 @@ class CrudGeneratorCRUD extends Command
     $this->runCommands();}
 
     }
-     static function createAdminPanelJson($baseName,$vars,$validation,$inputs){
-       //$this->call('crud:json', ['name' => $baseName, '--vars' => $vars,'--validation'=>$validation,'--inputs'=>$inputs]);
-    }
+
     protected function runCommands(){
 
 
@@ -78,26 +76,22 @@ class CrudGeneratorCRUD extends Command
                     throw new Exception('Path Not Present!');
 
 
-                $this->call('crud:controller', ['name' => $name, '--json' => $json]);
-                $this->call('crud:model', ['name' => $name]);
-                $this->call('crud:view', ['name' => $name, '--json' => $json]);
+                $this->call('crudgen:controller', ['name' => $name, '--json' => $json]);
+                $this->call('crudgen:model', ['name' => $name]);
+                $this->call('crudgen:view', ['name' => $name, '--json' => $json]);
 
                 if ($this->option('keys') !== null) {
-                    $this->call('crud:migration', ['name' => $name, '--json' => $json, '--keys' => $keys]);
+                    $this->call('crudgen:migration', ['name' => $name, '--json' => $json, '--keys' => $keys]);
                 }else{
 
-                    $this->call('crud:migration', ['name' => $name, '--json' => $json]);
+                    $this->call('crudgen:migration', ['name' => $name, '--json' => $json]);
                 }
 
                 $this->info("Created CRUD!");
 
             } else if ($vars !== null && $schemaPlan !== null && $name !== null) {
 
-                $this->call('crud:controller', ['name' => $name, '--vars' => $vars]);
-                $this->call('crud:model', ['name' => $name, '--vars' => $vars]);
-                $this->call('crud:view', ['name' => $name, '--vars' => $vars]);
-                $this->call('crud:migration', ['name' => $name, '--schema' => $schemaPlan]);
-                $this->info("Created CRUD!");
+
 
             } else {
                 $this->info("Parameters missing!");

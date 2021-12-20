@@ -6,25 +6,25 @@
 
         <div class="d-flex justify-content-center ">
 
-            <h1>{{$zetta->title}}</h1>
+            <h1>{{$gint->title}}</h1>
 
         </div>
         <div class="d-flex justify-content-center">
 
-            <p>Created at: {{$zetta->created_at}}</p>
+            <p>Created at: {{$gint->created_at}}</p>
 
         </div>
 
         <div class="d-flex justify-content-center list-inline m-2">
-            <a href="{{route('zettas.index')}}" class="btn btn-warning list-inline-item">
+            <a href="{{route('gints.index')}}" class="btn btn-warning list-inline-item">
                 Back
             </a>
 
-            <a href="{{route("zettas.edit",$zetta)}}" class="btn btn-primary list-inline-item">Edit</a>
+            <a href="{{route("gints.edit",$gint)}}" class="btn btn-primary list-inline-item">Edit</a>
 
 
             <form onsubmit="return confirm('Do you really want to delete the item?');"
-                  action="{{route('zettas.destroy',$zetta)}}" method="POST">
+                  action="{{route('gints.destroy',$gint)}}" method="POST">
                 @method('DELETE')
                 @csrf
                 <button class="btn btn-danger list-inline-item">Delete</button>
@@ -48,15 +48,7 @@
 
                 <div href='' class='list-group-item list-group-item-action '>
                     <div>
-                        <h3> Gender : {{(string)$zetta->gender }}</h3>
-                    </div>
-                </div><div href='' class='list-group-item list-group-item-action '>
-                    <div>
-                        <h3> Name : {{(string)$zetta->name }}</h3>
-                    </div>
-                </div><div href='' class='list-group-item list-group-item-action '>
-                    <div>
-                        <h3> LastName : {{(string)$zetta->lastName }}</h3>
+                        <h3> Name : {{(string)$gint->name }}</h3>
                     </div>
                 </div>
 

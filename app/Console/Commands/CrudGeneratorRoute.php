@@ -16,11 +16,6 @@ class CrudGeneratorRoute extends GeneratorCommand
                             {--delete}
                             {--create}
     ';
-   // protected $signature = 'crudgen:CRUD {name}
- //                           {--json= : JSON path}
-  //                          {--vars= : Variables for Model name:type}
-  //                          {--schema= : type:name SINGULAR}'
-  //  ;
 
     /**
      * The console command description.

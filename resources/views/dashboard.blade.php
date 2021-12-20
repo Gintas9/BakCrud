@@ -243,7 +243,7 @@
 @else
 @if(\App\Models\Ban::isBanned(\Illuminate\Support\Facades\Auth::id()))
     <h1>Banned</h1>
-@endif
+@else
 <div class="wrapper">
     <!-- Sidebar  -->
     <nav id="sidebar">
@@ -325,6 +325,7 @@
             });
         });</script>
 @endguest
+    @endif
 </body>
 
 </html>

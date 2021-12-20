@@ -201,14 +201,14 @@
 
             var reg = /^(\w|)+(?::[A-Za-z0-9]+)*$/;
             var namereg=/^[A-Za-z]+$/;
-            var nameVal= $('.varsTXT').val();
+            var nameVal= $('.varsTXT').val().toLowerCase();
 
             if(/^\s*$/.test(nameVal) == true ) {
                 $(".varsBTN").prop("disabled", true);
             }
             $('.varsTXT').on('keyup', function() {
                 let inputVal= $('.inputsTXT').val();
-                let nameVal= $('.varsTXT').val();
+                let nameVal= $('.varsTXT').val().toLowerCase();
 
                 if(reg.test(inputVal) != true || namereg.test(nameVal) != true) {
                     $(".varsBTN").prop("disabled", true);
@@ -226,7 +226,7 @@
 
             $('.inputsTXT').on('keyup', function() {
                 let inputVal= $('.inputsTXT').val();
-                let nameVal= $('.varsTXT').val();
+                let nameVal= $('.varsTXT').val().toLowerCase();
 
                 if(reg.test(inputVal) != true ) {
                     $(".varsBTN").prop("disabled", true);
@@ -253,11 +253,11 @@
 
 
         $('.inputsREF').on('keyup', function() {
-            let inputREF= $('.inputsREF').val();
+            let inputREF=( $('.inputsREF').val());
             let nameON= $('.inputsON').val();
             let nameCOLU= $('.inputsCOLU').val();
             let inputVal= $('.inputsTXT').val();
-            let nameVal= $('.varsTXT').val();
+            let nameVal= $('.varsTXT').val().toLowerCase();
 
             if(/^\s*$/.test(inputREF) == true &&/^\s*$/.test(nameON) == true && /^\s*$/.test(nameCOLU) == true ) {
                 $('.inputsON').css('border-color', '');
@@ -538,12 +538,20 @@ return valItems;
             let inputREF= $('.inputsREF').val();
             let nameON= $('.inputsON').val();
             let nameCOLU= $('.inputsCOLU').val();
-            let name = $(".varsTXT").val();
+            let name = $(".varsTXT").val().toLowerCase();
+            let inputsSEL = $(".inputsSEL").val();
+
+
+
             if(/^\s*$/.test(name) == false) {
-                validationComplete += buildValidation(name);
-                inputComplete += buildInput(name);
+                if(inputsSEL == 'file'){
+                    name='filePath'
+                }
+                validationComplete += buildValidation(name.toLowerCase());
+                inputComplete += buildInput(name.toLowerCase());
                 if (checkIfInputNAmeExists(name) == true || checkIfNameExists(name) == true || checkIfvalidationNAmeExists(name) == true || name == "") {
                 } else {
+
                     addVar();
                     $('.valFRM').val(validationComplete);
                     $('.inputFRM').val(inputComplete);
@@ -562,10 +570,16 @@ return valItems;
             $('.varFRM').val("");
             $('.inputTXT').val("");
             $('.varsTXT').val("");
-
+            $('.inputKEY').val("");
+            varStr="";
+            validationComplete="";
+            inputComplete="";
              varNames=[];
              validationNames=[];
              inputNames=[];
+            isFirst=true;
+            validationIsFirst=true;
+           inputIsFirst=true;
 
         }
 

@@ -1,0 +1,28 @@
+{
+    "crudName":"zen",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"Das"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"das",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"das",
+          "inputType":"text"
+          
+          }
+        ]
+    
+
+}

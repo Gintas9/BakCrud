@@ -5,7 +5,7 @@
     <div class="container  ">
         <div class="d-flex justify-content-center">
 
-            <h1>zettas</h1>
+            <h1>gints</h1>
 
         </div>
 
@@ -17,20 +17,15 @@
 
         <div class="d-flex justify-content-center">
 
-            <form method="POST" enctype="multipart/form-data" action="{{route('zettas.store')}}" onsubmit="return confirm('Do you really want to create the item?');">
+            <form method="POST" enctype="multipart/form-data" action="{{route('gints.store')}}" onsubmit="return confirm('Do you really want to create the item?');">
                 {{csrf_field()}}
                 <div class="">
 
 
 
-                            <label for="gender">gender</label>
-                    <select class="form-select" name="gender" id="gender">
-                      <option  value="male">male</option><option  value="female">female</option>
-                    </select>   <div class='input-group input-group-lg'>
+                          <div class='input-group input-group-lg'>
   <label for='name'>name</label>
-  <input name='name' id='name' type='Text' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='' placeholder='name'></div>  <div class='input-group input-group-lg'>
-  <label for='lastName'>lastName</label>
-  <input name='lastName' id='lastName' type='Text' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='' placeholder='lastName'></div>
+  <input name='name' id='name' type='Text' class='form-control' aria-label='Large' aria-describedby='inputGroup-sizing-sm' value='' placeholder='name'></div>
 
 
 
@@ -267,29 +262,29 @@
 
                                 <tr>
                                     <th><span>#</span></th>
-                                           <th><span>gender</span></th>      <th><span>name</span></th>      <th><span>lastName</span></th>
+                                           <th><span>name</span></th>
                                     <th><span>Actions</span></th>
 
                                     <th>&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($zettas as $zetta)
+                                @foreach($gints as $gint)
 
                                     <tr>
-                            <td style="text-align: left;">{{$zetta->id}}</td>
-                                      <td style="text-align: left;">{{$zetta->gender}}</td><td style="text-align: left;">{{$zetta->name}}</td><td style="text-align: left;">{{$zetta->lastName}}</td>
+                            <td style="text-align: left;">{{$gint->id}}</td>
+                                      <td style="text-align: left;">{{$gint->name}}</td>
 
 
 
                                     <td style="width: 20%;">
-                                        <a href="{{route('zettas.show',$zetta)}}" class="table-link">
+                                        <a href="{{route('gints.show',$gint)}}" class="table-link">
 									<span class="fa-stack">
 										<i class="fa fa-square fa-stack-2x"></i>
 										<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
 									</span>
                                         </a>
-                                        <a href="{{route("zettas.edit",$zetta)}}" class="table-link">
+                                        <a href="{{route("gints.edit",$gint)}}" class="table-link">
 									<span class="fa-stack">
 										<i class="fa fa-square fa-stack-2x"></i>
 										<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
@@ -298,7 +293,7 @@
 
                                         <span class="table-link">
 										<form onsubmit="return confirm('Do you really want to delete the item?');"
-                                                                                  action="{{route('zettas.destroy',$zetta)}}" method="POST" class="fa-stack">
+                                                                                  action="{{route('gints.destroy',$gint)}}" method="POST" class="fa-stack">
                                                             @method('DELETE')
                                                 @csrf
                                             <button type="submit" value=""   class="btn-danger" style="border-radius: 20%;"><i class="glyphicon glyphicon-trash"></i></button>
