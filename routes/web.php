@@ -34,7 +34,7 @@ Route::get('admins/view/{admin}', [\App\Http\Controllers\AdminController::class,
 Route::get('admins/migrate/{admin}', [\App\Http\Controllers\AdminController::class, 'resubmitMigration'])->name('migrateAdmin');
 
 
-Route::resource('gamas','App\Http\Controllers\GamaController');
+
 
 
 
@@ -88,4 +88,7 @@ Route::resource('bkeys','App\Http\Controllers\BkeyController');
 
 
 
-Route::resource('omsis','App\Http\Controllers\OmsiController');
+
+Route::resource('alphas','App\Http\Controllers\AlphaController');
+Route::resource('betas','App\Http\Controllers\BetaController');
+Route::resource('gammas','App\Http\Controllers\GammaController');

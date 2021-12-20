@@ -117,3 +117,13 @@ php artisan crudgen:json Cardinality --vars="string:name,bigInteger:pkeyid" --va
 php artisan crudgen:JSON Akey --vars="string:name" --validation="name,required|min:1" --inputs="name,text"
 
 php artisan crudgen:json Bkey --vars="string:name,bigInteger:pkeyid" --validation="name,required-pkeyid,required" --keys="pkeyid:id:akeys" --inputs="name,text-pkeyid,number"
+
+
+
+
+
+php artisan crudgen:json Omega --vars="string:name,string:lastName,string:filePath" --validation="name,required|max:100-lastName,required-filePath,min:1" --inputs="name,text-lastName,text-filePath,file"
+php artisan crudgen:view Omega --json="omegaJSON.json"
+php artisan crudgen:controller Omega --json="omegaJSON.json"
+php artisan crudgen:migration Omega --json="omegaJSON.json"
+php artisan crudgen:model Omega
