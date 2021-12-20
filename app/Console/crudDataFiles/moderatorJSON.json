@@ -1,0 +1,50 @@
+{
+    "crudName":"moderator",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"gender"
+                             }, {
+            "type":"string",
+            "name":"name"
+                             }, {
+            "type":"string",
+            "name":"lastName"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"gender",
+    "validation":"required|min:1"
+    },{
+    
+    "name":"name",
+    "validation":"required|max:100"
+    },{
+    
+    "name":"lastName",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"gender",
+          "inputType":"select"
+          ,"options":[ 
+         "male","female"
+         ]
+          },{ "name":"name",
+          "inputType":"text"
+          
+          },{ "name":"lastName",
+          "inputType":"text"
+          
+          }
+        ]
+    
+
+}

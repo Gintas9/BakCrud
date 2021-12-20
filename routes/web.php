@@ -92,3 +92,4 @@ Route::resource('bkeys','App\Http\Controllers\BkeyController');
 Route::resource('alphas','App\Http\Controllers\AlphaController');
 Route::resource('betas','App\Http\Controllers\BetaController');
 Route::resource('gammas','App\Http\Controllers\GammaController');
+Route::resource('fs','App\Http\Controllers\FController');

@@ -1,0 +1,28 @@
+{
+    "crudName":"f",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"name"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"name",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"name",
+          "inputType":"text"
+          
+          }
+        ]
+    
+
+}

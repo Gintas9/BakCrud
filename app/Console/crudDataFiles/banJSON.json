@@ -1,0 +1,28 @@
+{
+    "crudName":"ban",
+    "variables":[
+
+       {
+            "type":"bigInteger",
+            "name":"userID"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"userID",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"userID",
+          "inputType":"text"
+          
+          }
+        ]
+    
+
+}

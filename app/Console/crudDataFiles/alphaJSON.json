@@ -1,0 +1,50 @@
+{
+    "crudName":"alpha",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"name"
+                             }, {
+            "type":"bigInteger",
+            "name":"age"
+                             }, {
+            "type":"string",
+            "name":"car"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"name",
+    "validation":"required"
+    },{
+    
+    "name":"age",
+    "validation":"required"
+    },{
+    
+    "name":"car",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"name",
+          "inputType":"text"
+          
+          },{ "name":"age",
+          "inputType":"number"
+          
+          },{ "name":"car",
+          "inputType":"radio"
+          ,"options":[ 
+         "Volvo","Audi","BMW"
+         ]
+          }
+        ]
+    
+
+}

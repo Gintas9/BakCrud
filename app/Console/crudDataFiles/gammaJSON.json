@@ -1,0 +1,28 @@
+{
+    "crudName":"gamma",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"filePath"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"filePath",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"filePath",
+          "inputType":"file"
+          
+          }
+        ]
+    
+
+}

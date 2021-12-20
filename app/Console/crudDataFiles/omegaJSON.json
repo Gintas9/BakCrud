@@ -1,0 +1,48 @@
+{
+    "crudName":"omega",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"name"
+                             }, {
+            "type":"string",
+            "name":"lastName"
+                             }, {
+            "type":"string",
+            "name":"filePath"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"name",
+    "validation":"required|max:100"
+    },{
+    
+    "name":"lastName",
+    "validation":"required"
+    },{
+    
+    "name":"filePath",
+    "validation":"min:1"
+    }
+  ]
+    ,"inputs":[
+        { "name":"name",
+          "inputType":"text"
+          
+          },{ "name":"lastName",
+          "inputType":"text"
+          
+          },{ "name":"filePath",
+          "inputType":"file"
+          
+          }
+        ]
+    
+
+}

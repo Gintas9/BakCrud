@@ -1,0 +1,64 @@
+{
+    "crudName":"admin",
+    "variables":[
+
+       {
+            "type":"string",
+            "name":"baseName"
+                             }, {
+            "type":"string",
+            "name":"vars"
+                             }, {
+            "type":"string",
+            "name":"validation"
+                             }, {
+            "type":"string",
+            "name":"inputs"
+                             }, {
+            "type":"string",
+            "name":"foreignKey"
+                             }
+
+    ]
+    ,
+  "validations": [
+    
+    {
+    
+    "name":"baseName",
+    "validation":"required"
+    },{
+    
+    "name":"vars",
+    "validation":"required"
+    },{
+    
+    "name":"validation",
+    "validation":"required"
+    },{
+    
+    "name":"inputs",
+    "validation":"required"
+    }
+  ]
+    ,"inputs":[
+        { "name":"baseName",
+          "inputType":"text"
+          
+          },{ "name":"vars",
+          "inputType":"text"
+          
+          },{ "name":"validation",
+          "inputType":"text"
+          
+          },{ "name":"inputs",
+          "inputType":"text"
+          
+          },{ "name":"foreignKey",
+          "inputType":"text"
+          
+          }
+        ]
+    
+
+}
