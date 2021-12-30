@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFsTable extends Migration
+class CreateModeratorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateFsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fs', function (Blueprint $table) {
+        Schema::create('moderators', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('userID');
+$table->foreign('userID')->references('id')->on('users');
 
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateFsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fs');
+        Schema::dropIfExists('moderators');
     }
 }

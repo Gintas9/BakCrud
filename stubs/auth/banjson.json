@@ -23,6 +23,11 @@
 
   }
 ]
-
-
-}
+,
+  "foreignKey": [
+    {
+      "column": "userID",
+      "references": "id",
+      "on": "users"
+    }
+  ]}

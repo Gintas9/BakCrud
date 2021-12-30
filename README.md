@@ -1,7 +1,5 @@
 JEI 404 not found - php artisan route:clear
 
-pridejau ivairius input type for HTML
-Jsonui sukuria HTML inputu aprasymus
   
 
 
@@ -81,7 +79,7 @@ php artisan crudgen:model Omega
 
 
 ###########moderator
-php artisan crudgen:json Moderator --vars="string:gender,string:name,string:lastName" --validation="gender,required|min:1-name,required|max:100-lastName,required" --inputs="gender,select,male:female-name,text-lastName,text"
+php artisan crudgen:json Moderator --vars="unsignedBigInteger:userID" --validation="userID,required" --inputs="userID,text" --keys="userID,id,users"
 php artisan crudgen:view Moderator --json="moderatorJSON.json"
 php artisan crudgen:controller Moderator --json="moderatorJSON.json"
 php artisan crudgen:migration Moderator --json="moderatorJSON.json"

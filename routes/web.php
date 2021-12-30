@@ -38,7 +38,7 @@ Route::get('admins/migrate/{admin}', [\App\Http\Controllers\AdminController::cla
 
 
 
-Route::resource('zettas','App\Http\Controllers\ZettaController');
+
 Route::resource('booleans','App\Http\Controllers\BooleanController');
 
 Route::resource('downloads','App\Http\Controllers\DownloadController');
@@ -47,50 +47,5 @@ Route::resource('deltas','App\Http\Controllers\DeltaController');
 Route::resource('omicrons','App\Http\Controllers\OmicronController');
 Route::resource('moderators','App\Http\Controllers\ModeratorController');
 Route::resource('admins','App\Http\Controllers\AdminController');
-
-
-
-
-
-Route::resource('xis','App\Http\Controllers\XiController');
-Route::resource('humans','App\Http\Controllers\HumanController');
-Route::resource('persons','App\Http\Controllers\PersonController');
-Route::resource('players','App\Http\Controllers\PlayerController');
-
-
-
-
-
-
-Route::resource('omegas','App\Http\Controllers\OmegaController');
-
-Route::resource('lambdas','App\Http\Controllers\LambdaController');
-Route::resource('goods','App\Http\Controllers\GoodController');
-Route::resource('zons','App\Http\Controllers\ZonController');
-Route::resource('teasts','App\Http\Controllers\TeastController');
-
-
-Route::resource('fails','App\Http\Controllers\FailController');
-
-Route::resource('items','App\Http\Controllers\ItemController');
-
-Route::resource('marrieds','App\Http\Controllers\MarriedController');
-
-
-
 Route::resource('bans','App\Http\Controllers\BanController');
-Route::resource('pkeys','App\Http\Controllers\PkeyController');
-Route::resource('cardinalitys','App\Http\Controllers\CardinalityController');
-Route::resource('delta7s','App\Http\Controllers\Delta7Controller');
-Route::resource('akeys','App\Http\Controllers\AkeyController');
-Route::resource('bkeys','App\Http\Controllers\BkeyController');
 
-
-
-
-
-Route::resource('alphas','App\Http\Controllers\AlphaController');
-Route::resource('betas','App\Http\Controllers\BetaController');
-Route::resource('gammas','App\Http\Controllers\GammaController');
-Route::resource('fs','App\Http\Controllers\FController');
-Route::resource('gints','App\Http\Controllers\GintController');

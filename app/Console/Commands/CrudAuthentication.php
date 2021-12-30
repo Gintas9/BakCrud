@@ -34,7 +34,7 @@ class CrudAuthentication extends GeneratorCommand
     /**
      * Create Dashboard
      *
-     * @return int
+     * @return void
      */
     public function createAuthFiles()
     {
@@ -115,11 +115,11 @@ class CrudAuthentication extends GeneratorCommand
         }
 
 
-        if (file_exists($viewPath . "index.blade.php")){
-            $this->info($viewPath . "index.blade.php" . " ALREADY EXISTS!");
+        if (file_exists($viewPath . "index.blade.stub")){
+            $this->info($viewPath . "index.blade.stub" . " ALREADY EXISTS!");
         }else{
 
-            $this->buildResource($viewPath . "index.blade.php" ,"moderatorIndex.stub");
+            $this->buildResource($viewPath . "index.blade.stub" ,"moderatorIndex.stub");
         }
 
 

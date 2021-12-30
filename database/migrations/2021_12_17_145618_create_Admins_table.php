@@ -19,7 +19,8 @@ class CreateAdminsTable extends Migration
 $table->string('vars');
 $table->string('validation');
 $table->string('inputs');
-$table->string('foreignKey')->default(null);
+$table->string('foreignKey')->nullable();
+
 
             $table->timestamps();
         });

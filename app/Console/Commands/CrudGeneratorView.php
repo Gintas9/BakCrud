@@ -37,14 +37,14 @@ class CrudGeneratorView extends GeneratorCommand
     protected $type = 'View';
 
     /**
-     * edit.blade.php stub
+     * edit.blade.stub stub
      *
      * @var string
      */
     protected $editStub = "/stubs/view.edit.stub";
 
     /**
-     * show.blade.php stub
+     * show.blade.stub stub
      *
      * @var string
      */
@@ -52,7 +52,7 @@ class CrudGeneratorView extends GeneratorCommand
 
     /**
      *
-     * index.blade.php stub
+     * index.blade.stub stub
      *
      * @var string
      */
@@ -145,7 +145,6 @@ class CrudGeneratorView extends GeneratorCommand
         if (file_exists($directory)) {
             //rmmkdir(base_path($directory), 777, true);
 
-            $this->warn("exists");
 
             $arr=['edit','index','show'];
             foreach ($arr as $item){
@@ -178,7 +177,7 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = $this->argument('name');
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get(base_path($this->editStub));
-        $fileName = "edit.blade.php";
+        $fileName = "edit.blade.stub";
         $finalPath = base_path($path . "/" . $fileName);
         $stub = $this->replaceJSONStubItems($tempStub, $onlyName,$jsonObj);
         $this->info($finalPath);
@@ -273,7 +272,7 @@ class CrudGeneratorView extends GeneratorCommand
 
 
     /**
-     * Generates input items in index.blade.php
+     * Generates input items in index.blade.stub
      *
      * @return string
      */
@@ -421,7 +420,7 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get(base_path($this->showStub));
         $tempStub = $this->replaceShowItems($tempStub, $this->generateJSONShowItems($jsonObj));
-        $fileName = "show.blade.php";
+        $fileName = "show.blade.stub";
         $finalPath = base_path($path . "/" . $fileName);
         $stub = $this->replaceStubItems($tempStub, $onlyName);
 
@@ -430,7 +429,7 @@ class CrudGeneratorView extends GeneratorCommand
     }
 
     /**
-     * Generates items in show.blade.php
+     * Generates items in show.blade.stub
      *
      * @return string
      */
@@ -475,7 +474,7 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get(base_path($this->indexStub));
         $tempStub = $this->replaceIndexInputItems($tempStub, $this->generateJSONIndexItems($jsonObj));
-        $fileName = "index.blade.php";
+        $fileName = "index.blade.stub";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
         $this->files->put(base_path($finalPath), $stub);
@@ -602,7 +601,7 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = $this->argument('name');
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get($this->editStub);
-        $fileName = "edit.blade.php";
+        $fileName = "edit.blade.stub";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
 
@@ -622,7 +621,7 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get($this->indexStub);
         $tempStub = $this->replaceIndexInputItems($tempStub, $this->generateIndexItems());
-        $fileName = "index.blade.php";
+        $fileName = "index.blade.stub";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
         $this->files->put($finalPath, $stub);
@@ -641,7 +640,7 @@ class CrudGeneratorView extends GeneratorCommand
         $onlyName = lcfirst($onlyName);
         $tempStub = $this->files->get($this->showStub);
         $tempStub = $this->replaceShowItems($tempStub, $this->generateShowItems());
-        $fileName = "show.blade.php";
+        $fileName = "show.blade.stub";
         $finalPath = $path . "/" . $fileName;
         $stub = $this->replaceStubItems($tempStub, $onlyName);
 
@@ -668,7 +667,7 @@ class CrudGeneratorView extends GeneratorCommand
     }
 
     /**
-     * Generates items in show.blade.php
+     * Generates items in show.blade.stub
      *
      * @return string
      */
@@ -695,7 +694,7 @@ class CrudGeneratorView extends GeneratorCommand
     }
 
     /**
-     * Generates input items in index.blade.php
+     * Generates input items in index.blade.stub
      *
      * @return string
      */

@@ -3,14 +3,8 @@
   "variables":[
 
     {
-      "type":"string",
-      "name":"gender"
-    }, {
-      "type":"string",
-      "name":"name"
-    }, {
-      "type":"string",
-      "name":"lastName"
+      "type":"unsignedBigInteger",
+      "name":"userID"
     }
 
   ]
@@ -19,32 +13,23 @@
 
     {
 
-      "name":"gender",
-      "validation":"required|min:1"
-    },{
-
-      "name":"name",
-      "validation":"required|max:100"
-    },{
-
-      "name":"lastName",
+      "name":"userID",
       "validation":"required"
     }
   ]
 ,"inputs":[
-  { "name":"gender",
-    "inputType":"select"
-  ,"options":[
-    "male","female"
-  ]
-  },{ "name":"name",
-    "inputType":"text"
-
-  },{ "name":"lastName",
+  { "name":"userID",
     "inputType":"text"
 
   }
 ]
-
+,
+  "foreignKey": [
+    {
+      "column": "userID",
+      "references": "id",
+      "on": "users"
+    }
+  ]
 
 }
